@@ -47,6 +47,7 @@ import AddReferralDetails from '../Screens/AddReferralDetails';
 import ReferalDetails from '../Screens/ReferalDetails';
 import ReferralSuccessPage from '../Screens/ReferralSuccessPage';
 import CommonSuccessPage from '../Screens/CommonSuccessPage'
+import LarkWebView from '../Screens/LarkWebView';
 
 
 
@@ -106,6 +107,7 @@ export const HomeStack = (props) => {
             <HomeStackNav.Screen name="AddReferralDetails" component={AddReferralDetails} />
             <HomeStackNav.Screen name="ReferalDetails" component={ReferalDetails} />
             <HomeStackNav.Screen name="ReferralSuccessPage" component={ReferralSuccessPage} />
+            <HomeStackNav.Screen name="LarkWebView" component={LarkWebView} />
             <HomeStackNav.Screen name="CommonSuccessPage" component={CommonSuccessPage} />
         </HomeStackNav.Navigator>
     );

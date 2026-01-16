@@ -79,8 +79,6 @@ const Login = () => {
 
 
     const sendOtp = async ({ otpType, nextScreen }) => {
-
-
         try {
             setModalLoading(true);
 
@@ -91,7 +89,7 @@ const Login = () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         email: formData.email,
-                        phone: formData.phone, // ✔ now phone is available
+                        phone: formData.phone, 
                         otpType,
                     }),
 
