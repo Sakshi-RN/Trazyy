@@ -47,7 +47,7 @@ const Login = () => {
 
     const makePhoneCall = (phoneNumber = '+911246687770') => {
         Linking.openURL(`tel:${phoneNumber}`)
-            .catch(err =>  error("Error while making a phone call", err));
+            .catch(err => error("Error while making a phone call", err));
     };
 
     const sendEmail = (emailAddress = 'partnership@InvesTek.in') => {
@@ -191,6 +191,10 @@ const Login = () => {
             setLoading(true);
             setError({ email: "", password: "", api: "" });
 
+            console.log("Attempting Login...");
+            console.log("URL:", `${baseURL}${endpoints.LOGIN}`);
+            console.log("Body:", JSON.stringify({ email: formData.email, password: formData.password }));
+
             const response = await fetch(`${baseURL}${endpoints.LOGIN}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -200,7 +204,17 @@ const Login = () => {
                 }),
             });
 
-            const data = await response.json();
+            console.log("Response Status:", response.status);
+            const textData = await response.text();
+            console.log("Raw Response:", textData);
+
+            let data;
+            try {
+                data = JSON.parse(textData);
+            } catch (e) {
+                console.error("Failed to parse JSON:", e);
+                throw new Error("Invalid JSON response from server");
+            }
 
             setLoading(false);
 
@@ -214,12 +228,12 @@ const Login = () => {
             if (res.status === "CLIENT_LOGGED_IN" && res.directLogin === true) {
                 await AsyncStorage.setItem("clientsDetails", JSON.stringify(res));
                 await AsyncStorage.setItem("userEmail", res.email);
-                 await AsyncStorage.setItem("authToken", res.token);
+                await AsyncStorage.setItem("authToken", res.token);
                 await AsyncStorage.setItem("clientID", String(res.client_id));
                 await AsyncStorage.setItem("userID", String(res.id));
                 if (res.managerId) await AsyncStorage.setItem("managerID", String(res.managerId));
                 await AsyncStorage.setItem("detailsCompleted", JSON.stringify(res.detailsCompleted));
-            
+
                 navigation.reset({
                     index: 0,
                     routes: [{ name: "BTabNavigation" }],
@@ -284,6 +298,7 @@ const Login = () => {
             setError(prev => ({ ...prev, api: res.message || "Something went wrong" }));
 
         } catch (err) {
+            console.error("Login Error Details:", err);
             setLoading(false);
             setError(prev => ({ ...prev, api: "Failed to login. Please try again." }));
         }

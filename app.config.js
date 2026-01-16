@@ -1,0 +1,65 @@
+import 'dotenv/config';
+
+export default {
+    expo: {
+        name: "Trazyy",
+        slug: "Trazyy",
+        scheme: "investek",
+        version: "1.0.0",
+        orientation: "portrait",
+        icon: "./assets/icon.png",
+        userInterfaceStyle: "light",
+        newArchEnabled: true,
+        splash: {
+            image: "./assets/splash-icon.png",
+            resizeMode: "contain",
+            backgroundColor: "#ffffff"
+        },
+        ios: {
+            supportsTablet: true,
+            bundleIdentifier: "com.investek.mobile",
+            buildNumber: "63",
+            infoPlist: {
+                ITSAppUsesNonExemptEncryption: false,
+                NSCameraUsageDescription: "Camera access is required to upload profile documents and verification images.",
+                NSPhotoLibraryUsageDescription: "Photo library access is required to upload documents and profile images."
+            }
+        },
+        android: {
+            package: "com.investek.mobile",
+            versionCode: 4,
+            edgeToEdgeEnabled: true,
+            intentFilters: [
+                {
+                    action: "VIEW",
+                    data: [
+                        {
+                            scheme: "investek"
+                        }
+                    ],
+                    category: [
+                        "BROWSABLE",
+                        "DEFAULT"
+                    ]
+                }
+            ],
+            adaptiveIcon: {
+                foregroundImage: "./assets/adaptive-icon.png",
+                backgroundColor: "#ffffff"
+            }
+        },
+        web: {
+            favicon: "./assets/favicon.png"
+        },
+        plugins: [
+            "expo-asset",
+            "expo-web-browser"
+        ],
+        extra: {
+            eas: {
+                projectId: "46de45e4-5516-4c0e-b867-dc9d99c5099b"
+            },
+            APP_ENV: process.env.APP_ENV || 'dev',
+        }
+    }
+};
