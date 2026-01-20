@@ -552,7 +552,7 @@ const Home = () => {
           <Image source={images.SIPButton} />
         </TouchableOpacity>
         <SchemeContainer />
-                <TouchableOpacity
+        <TouchableOpacity
           style={{
             backgroundColor: 'purple',
             padding: 10,
@@ -561,10 +561,7 @@ const Home = () => {
             borderRadius: 8
           }}
           onPress={() => navigation.navigate('LarkWebView', {
-            apiKey: 'YOUR_API_KEY', // REPLACE THIS
-            apiSecret: 'YOUR_SECRET', // REPLACE THIS
             phoneNumber: '9999999999',
-            partnerId: 'YOUR_PARTNER_ID'
           })}
         >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Test Lark SDK</Text>

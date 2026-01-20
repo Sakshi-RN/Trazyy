@@ -1,7 +1,6 @@
 import Logo from './Logo.svg';
 import LeftArrow from './LeftArrow.svg';
 import Backarrow from './Backarrow.svg';
-import WelcomeImg from './Welcome.svg';
 import HomeArrow from './HomeArrow.svg';
 import ActiveProfile from './ActiveProfile.svg';
 import Peopleusers from './Peopleusers.svg';
@@ -60,5 +59,5 @@ import SelectScheme from './SelectScheme.svg';
 import EmptyCart from './EmptyCart.svg';
 import InvesTekLogo from './InvesTekLogo.svg';
 
-export {InvesTekLogo,EmptyCart,SelectScheme,SelectFolio,LumpsumAmountProgress,ReferalGroup,InvesTekRow,ReferralSecondProgress,ReferalSuccessProgress,ReferalFirstprogress,SIPConsentProgress,EditKYCFirstProgress,NomineeThirdProgress,NomineeSecondProgress,NomineeFirstProgress,SIPNewProgress,InsuranceLife,InsuranceMotor,InsuranceHealth,OneTimeFailure,SipSuccessProgress,SipFailuredProgress,FailuresImg,CompleteKycCard,StartSIP,OneTime,DailySip,SIPThirdProgress,SIPSecondProgress,SIPFirstprogress,BankThirdProgress,BankSecondProgress,BankFirstprogress,SuccessImg,ThirdProgress,SecondProgress,Firstprogress,OffersFrame,MotorImg,OtherImg,LifeImg,HealthImg,SecureImg,SIPImg,ReferImg,MutualFundCard,LearnmoreCard,InsuranceCard,ActiveInsurance, InsuranceIcon, PartnershipIcon, Peopleusers, ActiveProfile, Activepartner, Activehome,HomeArrow,HomeIcon,WelcomeImg,Backarrow,Logo,LeftArrow}
+export {InvesTekLogo,EmptyCart,SelectScheme,SelectFolio,LumpsumAmountProgress,ReferalGroup,InvesTekRow,ReferralSecondProgress,ReferalSuccessProgress,ReferalFirstprogress,SIPConsentProgress,EditKYCFirstProgress,NomineeThirdProgress,NomineeSecondProgress,NomineeFirstProgress,SIPNewProgress,InsuranceLife,InsuranceMotor,InsuranceHealth,OneTimeFailure,SipSuccessProgress,SipFailuredProgress,FailuresImg,CompleteKycCard,StartSIP,OneTime,DailySip,SIPThirdProgress,SIPSecondProgress,SIPFirstprogress,BankThirdProgress,BankSecondProgress,BankFirstprogress,SuccessImg,ThirdProgress,SecondProgress,Firstprogress,OffersFrame,MotorImg,OtherImg,LifeImg,HealthImg,SecureImg,SIPImg,ReferImg,MutualFundCard,LearnmoreCard,InsuranceCard,ActiveInsurance, InsuranceIcon, PartnershipIcon, Peopleusers, ActiveProfile, Activepartner, Activehome,HomeArrow,HomeIcon,Backarrow,Logo,LeftArrow}
     

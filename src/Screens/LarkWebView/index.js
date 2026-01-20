@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import { WebView } from 'react-native-webview';
 import getEnvVars from '../../utils/config';
@@ -10,10 +10,10 @@ const SDK_URL = 'https://sdk-lark.larkfinserv.com';
 const LarkWebView = ({ route, navigation }) => {
     // Expect these to be passed via route params or defined in env
     const {
-        apiKey = 'YOUR_API_KEY',
-        apiSecret = 'YOUR_API_SECRET',
-        partnerId = 'YOUR_PARTNER_ID',
-        phoneNumber
+        apiKey = getEnvVars().larkApiKey,
+        apiSecret = getEnvVars().larkApiSecret,
+        // partnerId = 'YOUR_PARTNER_ID',
+        phoneNumber = '9821338451'
     } = route.params || {};
 
     const [iframeUrl, setIframeUrl] = useState(null);
@@ -35,6 +35,8 @@ const LarkWebView = ({ route, navigation }) => {
                 }
 
                 console.log('LarkSDK: Initializing session...', endpoint);
+                console.log('LarkSDK: Using API Key:', apiKey, 'Length:', apiKey.length);
+                // console.log('LarkSDK: Using API Secret:', apiSecret); // Don't log full secret in prod
 
                 // 2. Call Init API
                 const response = await fetch(endpoint, {
@@ -68,7 +70,7 @@ const LarkWebView = ({ route, navigation }) => {
                 params.append('authKey', apiKey);
                 if (apiSecret) params.append('authSecret', apiSecret);
                 if (sessionId) params.append('sessionId', sessionId);
-                if (partnerId) params.append('partnerId', partnerId);
+                // if (partnerId) params.append('partnerId', partnerId);
                 if (finalUserId) params.append('userId', finalUserId);
                 if (themeConfig) params.append('theme', JSON.stringify(themeConfig));
                 if (phoneNumber) params.append('phoneNumber', phoneNumber);
@@ -87,14 +89,12 @@ const LarkWebView = ({ route, navigation }) => {
         };
 
         initializeSDK();
-    }, [apiKey, apiSecret, partnerId, phoneNumber]);
+    }, [apiKey, apiSecret,]);
 
     const handleMessage = (event) => {
         try {
             const data = JSON.parse(event.nativeEvent.data);
             console.log('LarkSDK Message:', data);
-
-            // Handle SDK events here based on the `sdk.js` logic
             const { type } = data;
 
             switch (type) {
@@ -103,7 +103,6 @@ const LarkWebView = ({ route, navigation }) => {
                     break;
                 case 'ELIGIBILITY_RESULT':
                     console.log('LarkSDK: Result', data.data);
-                    // navigate away or show success?
                     break;
                 case 'CLOSE':
                 case 'CLOSE_FRAME':

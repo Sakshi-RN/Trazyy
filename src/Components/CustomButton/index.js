@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
-
+import { LinearGradient } from 'expo-linear-gradient';
 const { width } = Dimensions.get('window');
 
 const CustomButton = ({ title, onPress, buttonStyle, textStyle, disabled }) => {
@@ -19,8 +19,13 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle, disabled }) => {
   const styles = getStyles(isTablet);
 
   return (
+           <LinearGradient
+                        colors={['#b0acacff', '#f7efefff', '#f9f5f5ff']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                              style={[styles.button, buttonStyle]}
+                    >
     <TouchableOpacity
-      style={[styles.button, buttonStyle]}
       onPress={onPress}
       disabled={disabled}
     >
@@ -28,6 +33,7 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle, disabled }) => {
         {title}
       </Text>
     </TouchableOpacity>
+    </LinearGradient>
   );
 };
 
@@ -39,10 +45,10 @@ const getStyles = (isTablet) =>
       borderColor: Colors.blue,
       borderRadius: isTablet ? 12 : 12,
       paddingVertical: isTablet ? responsiveHeight(2.2) : responsiveHeight(1.1),
-      paddingHorizontal: isTablet ? responsiveWidth(12) : responsiveWidth(9),
+      paddingHorizontal: isTablet ? responsiveWidth(12) : responsiveWidth(10),
       alignItems: 'center',
       justifyContent: 'center',
-      borderWidth:1.3
+      borderWidth:0.8
     },
     text: {
       color: Colors.blue,
