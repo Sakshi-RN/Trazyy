@@ -43,7 +43,7 @@ const getStyles = (isTablet) =>
   StyleSheet.create({
     button: {
       borderColor: Colors.blue,
-      borderRadius: isTablet ? 12 : 12,
+      borderRadius:15,
       paddingVertical: isTablet ? responsiveHeight(2.2) : responsiveHeight(1.1),
       paddingHorizontal: isTablet ? responsiveWidth(12) : responsiveWidth(10),
       alignItems: 'center',

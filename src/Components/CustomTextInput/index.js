@@ -59,7 +59,7 @@ const CustomTextInput = ({
           <TouchableOpacity onPress={onPressIcon}>
             <Icon
               name={iconName}
-              size={iconSize || 16}
+              size={iconSize || 12}
               color={iconColor || Colors.grey}
             />
           </TouchableOpacity>
@@ -73,21 +73,26 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: Colors.LIGHTGREY,
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    height: Platform.OS === 'ios' ? responsiveHeight(5) : responsiveHeight(6),
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    borderColor: 'rgba(255, 255, 255, 0.6)',
+    paddingVertical: responsiveHeight(1.5),
+    paddingHorizontal: responsiveWidth(6),
+    // height: Platform.OS === 'ios' ? responsiveHeight(6) : responsiveHeight(6),
+    justifyContent: 'space-between',
     justifyContent: 'space-between',
     marginTop: responsiveHeight(1),
+    borderRadius: 25,
+    borderWidth: 1,
+
   },
   input: {
-    fontSize: 12,
+    fontSize: 14,
     color: Colors.blue,
-    fontFamily: Fonts.Semibold700,
-    height: Platform.OS === 'ios' ? responsiveHeight(4) : responsiveHeight(5),
+    fontFamily: Fonts.Medium600,
+    // height: Platform.OS === 'ios' ? responsiveHeight(4) : responsiveHeight(5),
     width: responsiveWidth(70),
+
+
   },
   inputTextStyle: {
     fontSize: 12,

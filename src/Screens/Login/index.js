@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import {
     View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
-    Keyboard, Modal,
-    ImageBackground
+    Keyboard, Modal
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import Entypo from 'react-native-vector-icons/Entypo';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import CustomButton from '../../Components/CustomButton';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomTextInput from '../../Components/CustomTextInput';
 import Loader from '../../Components/Loader';
 import styles from './styles';
@@ -17,9 +15,6 @@ import * as Linking from 'expo-linking';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getEnvVars from '../../utils/config';
 import { LoginImg, Logo } from '../../Assets/svg';
-import { CommonStyles } from '../../Themes/CommonStyles';
-import CustomHeader from '../../Components/CustomHeader';
-import images from '../../Themes/Images';
 
 
 
@@ -314,56 +309,75 @@ const Login = () => {
     };
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={CommonStyles.container}
-        >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.container}>
-                    <CustomHeader />
-                      <LoginImg style={styles.logo} width={responsiveWidth(120)}/>
-                      <ImageBackground source={images.LoginBG} style={styles.imageBackgroundStyle}>
-                    <CustomTextInput
-                        placeholder="User ID"
-                        value={formData.email}
-                        onChangeText={(text) => handleInputChange('email', text)}
-                        keyboardType="email-address"
-                    />
-                    {error.email ? <Text allowFontScaling={false} style={styles.errorText}>{error.email}</Text> : null}
-                    <CustomTextInput
-                        placeholder="Password"
-                        iconName={isPasswordVisible ? 'eye-slash' : 'eye'}
-                        iconSize={15}
-                        iconColor={Colors.darkGrey}
-                        secureTextEntry={!isPasswordVisible}
-                        onPressIcon={togglePasswordVisibility}
-                        value={formData.password}
-                        onChangeText={(text) => handleInputChange('password', text)}
-                    />
-                    {error.password ? <Text allowFontScaling={false} style={styles.errorText}>{error.password}</Text> : null}
-                    {error.api ? (
-                        <Text allowFontScaling={false} style={styles.errorText}>
-                            {error.api}
-                        </Text>
-                    ) : null}
-                    <Text allowFontScaling={false} style={styles.ForgotPssText} onPress={handleForgotPassword}>
-                        Forgot Password?
-                    </Text>
-                    {RenderModal()}
-                    <CustomButton
-                        title={loading ? <Loader /> : "Sign In"}
-                        onPress={handleSignIn}
-                        buttonStyle={styles.btn}
-                        disabled={loading}
-                    />
+        <View style={styles.container}>
+            <View style={styles.topSection}>
+                <Logo width={responsiveWidth(40)} height={responsiveHeight(8)} />
+                <LoginImg
+                    resizeMode="contain"
+                    style={styles.illustration} />
+            </View>
+            <LinearGradient
+                colors={['#0F5098', '#137962', '#D3F4EA']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0.8, y: 1 }}
+                style={styles.gradientCard}
+            >
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    style={{ flex: 1, width: '100%' }}
+                >
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View>
+                            <Text allowFontScaling={false} style={styles.titleText}>Explore the app</Text>
+                            <Text allowFontScaling={false} style={styles.subtitleText}>
+                                Now your finances are in one place and always under control
+                            </Text>
+                            <CustomTextInput
+                                placeholder="User ID"
+                                value={formData.email}
+                                onChangeText={(text) => handleInputChange('email', text)}
+                                keyboardType="email-address"
+                                inputStyle={styles.glassInput}
+                                placeholderTextColor={Colors.black}
+                            />
+                            {error.email ? <Text allowFontScaling={false} style={styles.errorText}>{error.email}</Text> : null}
+                            <CustomTextInput
+                                placeholder="Password"
+                                iconName={isPasswordVisible ? 'eye-slash' : 'eye'}
+                                iconColor={Colors.black}
+                                secureTextEntry={!isPasswordVisible}
+                                onPressIcon={togglePasswordVisibility}
+                                value={formData.password}
+                                onChangeText={(text) => handleInputChange('password', text)}
+                                inputStyle={styles.glassInput}
+                                placeholderTextColor={Colors.black}
+                            />
+                            {error.password ? <Text allowFontScaling={false} style={styles.errorText}>{error.password}</Text> : null}
+                            {error.api ? (
+                                <Text allowFontScaling={false} style={styles.errorText}>
+                                    {error.api}
+                                </Text>
+                            ) : null}
 
-                        <Text allowFontScaling={false} style={styles.futureText}>New to Trazyy?</Text>
-                        <Text allowFontScaling={false} style={styles.signInBtn} onPress={handleSignUp}>Create Account</Text>
-                                              </ImageBackground>
-                </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+                            <CustomButton
+                                title={loading ? <Loader /> : "Sign In"}
+                                onPress={handleSignIn}
+                                buttonStyle={styles.glassButton}
+                                disabled={loading}
+                            />
 
+                            <View style={styles.footerSection}>
+                                <Text allowFontScaling={false} style={styles.futureText}>New to Trazyy?</Text>
+                                <TouchableOpacity onPress={handleSignUp}>
+                                    <Text allowFontScaling={false} style={styles.createAccountText}>Create Account</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
+                {RenderModal()}
+            </LinearGradient>
+        </View>
     );
 };
 
