@@ -50,7 +50,7 @@ export default function AppNavigation() {
       >
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName={isLoggedIn ? 'BTabNavigation' : 'Welcome'}
+          initialRouteName={isLoggedIn ? 'BTabNavigation' : 'Login'}
         >
           <Stack.Screen name="BTabNavigation" component={BTabNavigation} />
           <Stack.Screen name="Welcome" component={Welcome} />

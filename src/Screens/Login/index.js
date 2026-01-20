@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import {
     View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
-    Keyboard, Modal
+    Keyboard, Modal,
+    ImageBackground
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { responsiveHeight } from 'react-native-responsive-dimensions';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import CustomButton from '../../Components/CustomButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -15,8 +16,10 @@ import styles from './styles';
 import * as Linking from 'expo-linking';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getEnvVars from '../../utils/config';
-import { Logo } from '../../Assets/svg';
+import { LoginImg, Logo } from '../../Assets/svg';
 import { CommonStyles } from '../../Themes/CommonStyles';
+import CustomHeader from '../../Components/CustomHeader';
+import images from '../../Themes/Images';
 
 
 
@@ -89,7 +92,7 @@ const Login = () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         email: formData.email,
-                        phone: formData.phone, 
+                        phone: formData.phone,
                         otpType,
                     }),
 
@@ -317,18 +320,18 @@ const Login = () => {
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
-                    <Logo style={styles.headingText} />
-                    <Text allowFontScaling={false} style={styles.welcomeText}>Sign in to your Account</Text>
+                    <CustomHeader />
+                      <LoginImg style={styles.logo} width={responsiveWidth(120)}/>
+                      <ImageBackground source={images.LoginBG} style={styles.imageBackgroundStyle}>
                     <CustomTextInput
-                        placeholder="Enter Email"
+                        placeholder="User ID"
                         value={formData.email}
                         onChangeText={(text) => handleInputChange('email', text)}
-                        title={'User Email'}
                         keyboardType="email-address"
                     />
                     {error.email ? <Text allowFontScaling={false} style={styles.errorText}>{error.email}</Text> : null}
                     <CustomTextInput
-                        placeholder="Enter Password"
+                        placeholder="Password"
                         iconName={isPasswordVisible ? 'eye-slash' : 'eye'}
                         iconSize={15}
                         iconColor={Colors.darkGrey}
@@ -336,7 +339,6 @@ const Login = () => {
                         onPressIcon={togglePasswordVisibility}
                         value={formData.password}
                         onChangeText={(text) => handleInputChange('password', text)}
-                        title={'Password'}
                     />
                     {error.password ? <Text allowFontScaling={false} style={styles.errorText}>{error.password}</Text> : null}
                     {error.api ? (
@@ -354,24 +356,10 @@ const Login = () => {
                         buttonStyle={styles.btn}
                         disabled={loading}
                     />
-                    <Text allowFontScaling={false} style={{ alignSelf: 'center' }}>
-                        <Text allowFontScaling={false} style={styles.futureText}>Don't have an account ?</Text>{' '}
-                        <Text allowFontScaling={false} style={styles.signInBtn} onPress={handleSignUp}>Create account</Text>
-                    </Text>
-                    <View style={styles.line} />
-                    <View style={styles.row}>
-                        <TouchableOpacity style={[styles.btncallingRow, { marginLeft: responsiveHeight(1) }]} onPress={() => { makePhoneCall() }}>
-                            <MaterialIcons name="local-phone" size={22} color={Colors.blue} />
-                            <Text allowFontScaling={false} style={styles.callingText}>{' '}+91 87500 00233</Text>
-                        </TouchableOpacity>
-                        <View style={styles.circle}>
-                            <Text allowFontScaling={false} style={styles.callingText}>or</Text>
-                        </View>
-                        <TouchableOpacity style={styles.btncallingRow} onPress={() => { sendEmail() }}>
-                            <Entypo name="mail" size={22} color={Colors.blue} />
-                            <Text allowFontScaling={false} style={styles.callingText}>{' '} info@InvesTek.In</Text>
-                        </TouchableOpacity>
-                    </View>
+
+                        <Text allowFontScaling={false} style={styles.futureText}>New to Trazyy?</Text>
+                        <Text allowFontScaling={false} style={styles.signInBtn} onPress={handleSignUp}>Create Account</Text>
+                                              </ImageBackground>
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

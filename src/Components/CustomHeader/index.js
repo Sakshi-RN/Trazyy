@@ -27,31 +27,11 @@ const totalCount = sipCount + lumpsumCount;
   return (
     <View style={styles.headerContainer}>
       <View style={styles.sideContainer}>
-        {showBack && (
-          <TouchableOpacity onPress={handleGoBack}>
-            <Ionicons name="chevron-back" size={24} color={Colors.blue} />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      <View style={styles.centerContainer}>
-        {showLogo ? (
-          <Logo height={40} width={130} />
-        ) : (
-          <Text allowFontScaling={false} style={styles.title}>{title}</Text>
-        )}
-      </View>
-
-      <View style={styles.sideContainer}>
-        <TouchableOpacity onPress={handleCart}>
+ <Logo />
+         {/* <TouchableOpacity onPress={handleCart}>
           <Ionicons name="cart-outline" size={25} color={Colors.blue} />
-        </TouchableOpacity>
-        {totalCount > 0 && (
-          <View style={styles.cartBadge}>
-            <Text style={styles.cartBadgeText}>{totalCount}</Text>
-          </View>
-            )}
-      </View>
+        </TouchableOpacity> */}
+</View>
     </View>
   );
 };
@@ -59,18 +39,14 @@ const totalCount = sipCount + lumpsumCount;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: responsiveHeight(7),
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: responsiveWidth(4),
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    marginTop: responsiveHeight(5)
+        alignSelf:'center'
   },
   sideContainer: {
-    width: 40,
     alignItems: 'center',
   },
   centerContainer: {

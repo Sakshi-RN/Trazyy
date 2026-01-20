@@ -19,20 +19,20 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle, disabled }) => {
   const styles = getStyles(isTablet);
 
   return (
-           <LinearGradient
-                        colors={['#b0acacff', '#f7efefff', '#f9f5f5ff']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
-                              style={[styles.button, buttonStyle]}
-                    >
-    <TouchableOpacity
-      onPress={onPress}
-      disabled={disabled}
+    <LinearGradient
+      colors={['#b0acacff', '#f7efefff', '#f9f5f5ff']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={[styles.button, buttonStyle]}
     >
+      <TouchableOpacity
+        onPress={onPress}
+        disabled={disabled}
+      >
         <Text allowFontScaling={false} style={[styles.text, textStyle]}>
-        {title}
-      </Text>
-    </TouchableOpacity>
+          {title}
+        </Text>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };
@@ -48,11 +48,11 @@ const getStyles = (isTablet) =>
       paddingHorizontal: isTablet ? responsiveWidth(12) : responsiveWidth(10),
       alignItems: 'center',
       justifyContent: 'center',
-      borderWidth:0.8
+      borderWidth: 0.8
     },
     text: {
       color: Colors.blue,
-      fontSize:15,
+      fontSize: 15,
       fontFamily: Fonts.Semibold700,
     },
   });
