@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { WebView } from 'react-native-webview'; // SDK might use this internally, but we use the SDK wrapper
 import getEnvVars from '../../utils/config';
-
-// Constants from the SDK
-const SDK_API_URL = 'https://sdk-backend.larkfinserv.com';
-const SDK_URL = 'https://sdk-lark.larkfinserv.com';
+import { LarkFinServSDK, LarkFinServWebView } from 'larkfinserv-react-native-sdk';
 
 const LarkWebView = ({ route, navigation }) => {
     // Expect these to be passed via route params or defined in env
     const {
         apiKey = getEnvVars().larkApiKey,
         apiSecret = getEnvVars().larkApiSecret,
-        // partnerId = 'YOUR_PARTNER_ID',
         phoneNumber = '9821338451'
     } = route.params || {};
 
-    const [iframeUrl, setIframeUrl] = useState(null);
+    const [sdk] = useState(() => new LarkFinServSDK({
+        apiKey: apiKey,
+        apiSecret: apiSecret,
+        environment: 'production', // or 'sandbox' based on your need
+    }));
+
     const [loading, setLoading] = useState(true);
+    const [isSdkInitialized, setIsSdkInitialized] = useState(false);
     const [error, setError] = useState(null);
 
-    // Initialize session and generate URL
+    // Initialize SDK
     useEffect(() => {
         const initializeSDK = async () => {
             try {
@@ -28,93 +30,69 @@ const LarkWebView = ({ route, navigation }) => {
                     throw new Error('Missing API Key or Secret');
                 }
 
-                // 1. Construct Init Endpoint
-                let endpoint = `${SDK_API_URL}/loan-sdk/init`;
-                if (phoneNumber) {
-                    endpoint = `${endpoint}?phone=${phoneNumber}&isVerified=true`;
-                }
+                console.log('LarkSDK: Initializing with API Key length:', apiKey?.length);
+                await sdk.initialize({
+                    apiKey: apiKey,
+                    apiSecret: apiSecret,
+                    phoneNumber: phoneNumber,
+                });
+                console.log('LarkSDK: Initialized function called');
+                setIsSdkInitialized(true);
 
-                console.log('LarkSDK: Initializing session...', endpoint);
-                console.log('LarkSDK: Using API Key:', apiKey, 'Length:', apiKey.length);
-                // console.log('LarkSDK: Using API Secret:', apiSecret); // Don't log full secret in prod
-
-                // 2. Call Init API
-                const response = await fetch(endpoint, {
-                    method: 'GET',
-                    headers: {
-                        'X-SDK-Key': apiKey,
-                        'X-SDK-Secret': apiSecret,
-                        'Content-Type': 'application/json',
-                        'ngrok-skip-browser-warning': 'true',
-                    }
+                // Helper to handle events
+                sdk.on('READY', () => {
+                    console.log('LarkSDK: EVENT RECEIVED - READY');
+                    setLoading(false);
                 });
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('LarkSDK: Init failed', response.status, errorText);
-                    throw new Error(`Init failed: ${response.status}`);
-                }
+                sdk.on('ERROR', (event) => {
+                    console.error('LarkSDK: EVENT RECEIVED - ERROR', event);
+                    setError(event?.data?.error?.message || 'Unknown SDK Error');
+                    setLoading(false);
+                });
 
-                const data = await response.json();
-                console.log('LarkSDK: Session initialized', data);
+                sdk.on('CLOSE', () => {
+                    console.log('LarkSDK: EVENT RECEIVED - CLOSE');
+                    navigation.goBack();
+                });
 
-                if (!data || !data.sessionId) {
-                    throw new Error('Invalid response: No sessionId');
-                }
+                sdk.on('CLOSE_FRAME', () => {
+                    console.log('LarkSDK: EVENT RECEIVED - CLOSE_FRAME');
+                    navigation.goBack();
+                });
 
-                const { sessionId, themeConfig, user, userId } = data;
-                const finalUserId = user?.id || userId || data.userId;
-
-                // 3. Generate WebView URL (iframe URL)
-                const params = new URLSearchParams();
-                params.append('authKey', apiKey);
-                if (apiSecret) params.append('authSecret', apiSecret);
-                if (sessionId) params.append('sessionId', sessionId);
-                // if (partnerId) params.append('partnerId', partnerId);
-                if (finalUserId) params.append('userId', finalUserId);
-                if (themeConfig) params.append('theme', JSON.stringify(themeConfig));
-                if (phoneNumber) params.append('phoneNumber', phoneNumber);
-
-                const finalUrl = `${SDK_URL}?${params.toString()}`;
-                console.log('LarkSDK: Loading URL', finalUrl);
-
-                setIframeUrl(finalUrl);
+                // Fallback timeout in case READY never fires
+                setTimeout(() => {
+                    setLoading((currentLoading) => {
+                        if (currentLoading) {
+                            console.warn('LarkSDK: WARNING - Timed out waiting for READY event. Forcing loader hide.');
+                            return false;
+                        }
+                        return currentLoading;
+                    });
+                }, 10000); // 10 seconds timeout
 
             } catch (err) {
-                console.error('LarkSDK Error:', err);
+                console.error('LarkSDK Init Error:', err);
                 setError(err.message);
-            } finally {
                 setLoading(false);
             }
         };
 
         initializeSDK();
-    }, [apiKey, apiSecret,]);
 
-    const handleMessage = (event) => {
-        try {
-            const data = JSON.parse(event.nativeEvent.data);
-            console.log('LarkSDK Message:', data);
-            const { type } = data;
-
-            switch (type) {
-                case 'READY':
-                    console.log('LarkSDK: Ready');
-                    break;
-                case 'ELIGIBILITY_RESULT':
-                    console.log('LarkSDK: Result', data.data);
-                    break;
-                case 'CLOSE':
-                case 'CLOSE_FRAME':
-                    console.log('LarkSDK: Close requested');
-                    navigation.goBack();
-                    break;
+        return () => {
+            // Cleanup listeners if supported/needed
+            try {
+                sdk.off('READY');
+                sdk.off('ERROR');
+                sdk.off('CLOSE');
+                sdk.off('CLOSE_FRAME');
+            } catch (e) {
+                console.log('Error detaching listeners', e);
             }
-        } catch (e) {
-            // Non-JSON message?
-            console.log('WebView Message (raw):', event.nativeEvent.data);
-        }
-    };
+        };
+    }, [apiKey, apiSecret, phoneNumber]);
 
     if (error) {
         return (
@@ -124,29 +102,22 @@ const LarkWebView = ({ route, navigation }) => {
         );
     }
 
-    if (loading || !iframeUrl) {
-        return (
-            <View style={styles.center}>
-                <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-        );
-    }
-
+    // We can use mode="inline" to render it directly in this view
     return (
         <View style={styles.container}>
-            <WebView
-                source={{ uri: iframeUrl }}
-                style={{ flex: 1 }}
-                onMessage={handleMessage}
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                startInLoadingState={true}
-                renderLoading={() => (
-                    <View style={styles.center}>
-                        <ActivityIndicator size="large" color="#0000ff" />
-                    </View>
-                )}
-            />
+            {isSdkInitialized && (
+                <LarkFinServWebView
+                    sdk={sdk}
+                    mode="inline"
+                />
+            )}
+            {loading && (
+                <View style={[styles.center, StyleSheet.absoluteFill, { backgroundColor: 'white' }]}>
+                    <ActivityIndicator size="large" color="#0000ff" />
+                    {/* Optional: Show text if stuck */}
+                    {isSdkInitialized && <Text style={{ marginTop: 10 }}>Loading Loan Journey...</Text>}
+                </View>
+            )}
         </View>
     );
 };
