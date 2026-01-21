@@ -95,7 +95,7 @@ const LoginOtpVerify = ({ route }) => {
                 await AsyncStorage.setItem("detailsCompleted", JSON.stringify(detailsCompleted));
                 navigation.reset({
                     index: 0,
-                    routes: [{ name: "BTabNavigation" }],
+                    routes: [{ name: "OTPVerifiedSuccess" }],
                 });
             } else if (json?.response?.status === false) {
                 setMessage(json?.response?.message || "OTP verification failed");

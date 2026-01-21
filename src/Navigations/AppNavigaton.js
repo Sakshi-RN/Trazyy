@@ -13,6 +13,8 @@ import ForgotPassword from '../Screens/ForgotPassword';
 import ResetPasswOtpVerify from '../Screens/ResetPasswOtpVerify';
 import ChangePassword from '../Screens/ChangePassword';
 import BTabNavigation from '../Navigations/BTabNavigation';
+import LoginWelcome from '../Screens/LoginWelcome';
+import OTPVerifiedSuccess from '../Screens/OTPVerifiedSuccess';
 
 
 
@@ -50,7 +52,7 @@ export default function AppNavigation() {
       >
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName={isLoggedIn ? 'BTabNavigation' : 'Login'}
+          initialRouteName={isLoggedIn ? 'BTabNavigation' : 'Welcome'}
         >
           <Stack.Screen name="BTabNavigation" component={BTabNavigation} />
           <Stack.Screen name="Welcome" component={Welcome} />
@@ -62,6 +64,8 @@ export default function AppNavigation() {
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="ResetPasswOtpVerify" component={ResetPasswOtpVerify} />
           <Stack.Screen name="ChangePassword" component={ChangePassword} />
+          <Stack.Screen name="LoginWelcome" component={LoginWelcome} />
+          <Stack.Screen name="OTPVerifiedSuccess" component={OTPVerifiedSuccess} />
         </Stack.Navigator>
       </NavigationContainer>
     </CartCountProvider>
