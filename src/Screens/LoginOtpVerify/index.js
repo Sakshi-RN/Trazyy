@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
-    Text, StyleSheet, TouchableOpacity,
+    Text, StyleSheet,
     KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
     Keyboard, View
 } from 'react-native';
@@ -26,8 +26,8 @@ const LoginOtpVerify = ({ route }) => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
 
-    const { data, phoneNumber, email } = route.params;
-
+    const { data, email, phone } = route.params;
+    console.log(phone, 'phone')
     const handleOTPChange = (newOtp) => {
         setOtp(newOtp);
         setIsOtpValid(true);
@@ -99,6 +99,7 @@ const LoginOtpVerify = ({ route }) => {
                 });
             } else if (json?.response?.status === false) {
                 setMessage(json?.response?.message || "OTP verification failed");
+                setIsOtpValid(false);
             } else {
                 setMessage("Unexpected response, please try again.");
             }
@@ -153,8 +154,8 @@ const LoginOtpVerify = ({ route }) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <Logo style={styles.headingText} />
-                    <Text allowFontScaling={false} style={styles.welcomeText}>Email/Phone Verify OTP</Text>
-                    <Text allowFontScaling={false} style={styles.title}>Enter code</Text>
+                    <Text allowFontScaling={false} style={styles.welcomeText}>Enter code</Text>
+                    <Text allowFontScaling={false} style={styles.title}>We’ve sent an SMS with an activation code to your phone +91 97910 32570</Text>
                     <OTPInput length={6} otp={otp} setOtp={handleOTPChange} isOtpValid={isOtpValid} />
                     {message !== "" && (
                         <Text style={[styles.message,
@@ -198,17 +199,17 @@ const styles = StyleSheet.create({
         paddingTop: responsiveHeight(8),
     },
     welcomeText: {
-        fontSize: 20,
-        color: Colors.blue,
+        fontSize: 26,
+        color: Colors.black,
         fontFamily: Fonts.Bold800,
-        marginVertical: responsiveHeight(2),
-        alignSelf: 'center',
+        marginTop: responsiveHeight(4),
     },
     title: {
-        fontFamily: Fonts.Bold800,
-        fontSize: 20,
-        color: Colors.black,
-        marginTop: responsiveHeight(2),
+        fontFamily: Fonts.Medium600,
+        fontSize: 16,
+        color: Colors.darkGrey,
+        marginTop: responsiveHeight(0.5),
+        width: responsiveWidth(85)
     },
     headingText: {
         alignSelf: 'center',
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     },
     resendText: {
         color: Colors.blue,
-        fontSize: 14,
+        fontSize: 15,
         marginTop: responsiveHeight(3),
         alignSelf: 'center',
         fontFamily: Fonts.Bold800,
@@ -236,6 +237,7 @@ const styles = StyleSheet.create({
     },
     btnStyle: {
         marginTop: responsiveHeight(3),
+        alignSelf: 'center'
     },
     errorText: {
         color: Colors.red,

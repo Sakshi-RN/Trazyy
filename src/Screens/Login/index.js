@@ -187,10 +187,6 @@ const Login = () => {
             setLoading(true);
             setError({ email: "", password: "", api: "" });
 
-            console.log("Attempting Login...");
-            console.log("URL:", `${baseURL}${endpoints.LOGIN}`);
-            console.log("Body:", JSON.stringify({ email: formData.email, password: formData.password }));
-
             const response = await fetch(`${baseURL}${endpoints.LOGIN}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -199,10 +195,7 @@ const Login = () => {
                     password: formData.password,
                 }),
             });
-
-            console.log("Response Status:", response.status);
             const textData = await response.text();
-            console.log("Raw Response:", textData);
 
             let data;
             try {
@@ -220,6 +213,8 @@ const Login = () => {
             }
 
             const res = data.response;
+console.log(response, '@@@res');
+
 
             if (res.status === "CLIENT_LOGGED_IN" && res.directLogin === true) {
                 await AsyncStorage.setItem("clientsDetails", JSON.stringify(res));
@@ -273,6 +268,7 @@ const Login = () => {
             if (res.status === true && res.otpSent === true) {
                 navigation.navigate("LoginOtpVerify", {
                     email: res.email,
+                    phone: res.phone,
                     otpSent: true
                 });
                 return;
