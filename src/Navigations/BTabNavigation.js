@@ -1,14 +1,12 @@
-import React from 'react';
 import { StyleSheet, Platform } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ActiveInsurance, InsuranceIcon, HomeIcon, PartnershipIcon, Peopleusers, ActiveProfile, Activepartner, Activehome } from '../Assets/svg';
+import { ActiveInsurance, InsuranceIcon, HomeIcon, BondIcon, Peopleusers, ActiveProfile, ActiveBondIcon, Activehome,ActiveLoan,LoanIcon } from '../Assets/svg';
 import HomeStack from '../Navigations/HomeStack';
 import ProfileStack from '../Navigations/ProfileStack';
 import SIPStack from './SIPStack';
 import LumpsumpStack from './LumpsumpStack';
 import Colors from '../Themes/Colors';
-import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import { responsiveHeight } from 'react-native-responsive-dimensions';
 
 
 const Tab = createBottomTabNavigator();
@@ -34,21 +32,30 @@ export default function BTabNavigation() {
       />
 
       <Tab.Screen
-        name='SIP'
+        name='Bond'
         component={SIPStack}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) =>
-            focused ? <Activepartner /> : <PartnershipIcon />,
+            focused ? <ActiveBondIcon /> : <BondIcon />,
         }}
       />
       <Tab.Screen
-        name='Lumpsump'
+        name='Insurance'
         component={LumpsumpStack}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? <ActiveInsurance /> : <InsuranceIcon />,
+        }}
+      />
+        <Tab.Screen
+        name='Loan'
+        component={ProfileStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) =>
+            focused ? <ActiveLoan /> : <LoanIcon />,
         }}
       />
       <Tab.Screen
