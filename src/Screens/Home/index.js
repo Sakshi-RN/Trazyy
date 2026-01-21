@@ -4,7 +4,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useState, useCallback } from 'react';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { Fonts } from '../../Themes/Fonts';
-import { InsuranceCard, LearnmoreCard, MutualFundCard, ReferImg, SIPImg, CompleteKycCard, InvesTekLogo, StartSIP, DailySip, OneTime } from '../../Assets/svg';
+import { InsuranceCard, LearnmoreCard, MutualFundCard, ReferImg, SIPImg, CompleteKycCard, InvesTekLogo, StartSIP, DailySip, OneTime,Logo } from '../../Assets/svg';
 import { CommonStyles } from '../../Themes/CommonStyles';
 import PromoCard from '../../Components/PromoCard';
 import images from '../../Themes/Images';
@@ -65,12 +65,11 @@ const Home = () => {
     const displayName = nameToDisplay ? nameToDisplay : '';
 
     return (
-      <ImageBackground source={background} imageStyle={{ borderRadius: 20 }}>
-        <View style={styles.centerContainer}>
-          <InvesTekLogo />
-        </View>
-        {/* <WebViewContainer /> */}
+      <ImageBackground source={background} imageStyle={{ borderRadius: 18 }}>
+         <WebViewContainer />
         <Text allowFontScaling={false} style={styles.prflNameText}>{`${greeting} ${displayName},`}</Text>
+                <Text allowFontScaling={false} style={styles.quoteText}>“An investment in knowledge pays the best interest.”</Text>
+        <Text allowFontScaling={false} style={styles.autorText}>— Benjamin Franklin</Text>
       </ImageBackground>
     )
   }
@@ -524,6 +523,7 @@ const Home = () => {
   }
   return (
     <View style={[CommonStyles.container, { paddingBottom: Platform.OS === 'ios' ? responsiveHeight(12) : responsiveHeight(15) }]}>
+        <Logo  style={styles.centerContainer}/>
       {renderHeader()}
       <ScrollView
         style={styles.scrollContent}
@@ -620,19 +620,36 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   centerContainer: {
-    alignItems: 'center',
+    alignSelf: 'center',
     marginTop: responsiveHeight(7),
-    marginBottom: responsiveHeight(2)
+
   },
   prflNameText: {
     fontSize: 20,
     marginTop: responsiveHeight(2.5),
-    fontFamily: Fonts.Bold800,
+    fontFamily: Fonts.Semibold700,
     color: Colors.white,
-    marginLeft: responsiveWidth(5),
+    marginLeft: responsiveWidth(7),
     width: responsiveWidth(80),
-    lineHeight: 23,
-    marginBottom: responsiveHeight(1),
+
+  },
+  quoteText:{
+   fontSize:14,
+    marginTop: responsiveHeight(0.5),
+    fontFamily: Fonts.Semibold700,
+    color: Colors.white,
+    marginLeft: responsiveWidth(7),
+    width: responsiveWidth(85),
+  
+  },
+  autorText:{
+    fontSize:14,
+    marginTop: responsiveHeight(0.3),
+    fontFamily: Fonts.Semibold700,
+    color: Colors.white,
+    marginRight: responsiveWidth(15),
+    alignSelf:'flex-end',
+    marginBottom:responsiveHeight(5)
   },
   blueContainerStyle: {
     borderRadius: 10,
