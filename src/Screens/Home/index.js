@@ -4,7 +4,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useState, useCallback } from 'react';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { Fonts } from '../../Themes/Fonts';
-import { InsuranceCard, LearnmoreCard, MutualFundCard, ReferImg, SIPImg, CompleteKycCard, InvesTekLogo, StartSIP, DailySip, OneTime,Logo } from '../../Assets/svg';
+import { LoanBtn, InsuranceBtn, LearnmoreCard, MutualFundCard, ReferImg, SIPImg, CompleteKycCard, InvesTekLogo, StartSIP, DailySip, OneTime, Logo, Money, InvestorBtn, ExistingInvestor, BondIcon, BondsBtn, CalculatorImg, HiAiImg, TrazzyImg } from '../../Assets/svg';
 import { CommonStyles } from '../../Themes/CommonStyles';
 import PromoCard from '../../Components/PromoCard';
 import images from '../../Themes/Images';
@@ -66,10 +66,13 @@ const Home = () => {
 
     return (
       <ImageBackground source={background} imageStyle={{ borderRadius: 18 }}>
-         <WebViewContainer />
+        <WebViewContainer />
         <Text allowFontScaling={false} style={styles.prflNameText}>{`${greeting} ${displayName},`}</Text>
-                <Text allowFontScaling={false} style={styles.quoteText}>“An investment in knowledge pays the best interest.”</Text>
+        <Text allowFontScaling={false} style={styles.quoteText}>“An investment in knowledge pays the best interest.”</Text>
         <Text allowFontScaling={false} style={styles.autorText}>— Benjamin Franklin</Text>
+        <TouchableOpacity style={styles.balanceBtn}>
+          <Text allowFontScaling={false} style={styles.balanceBtnText}>Check your Balance</Text>
+        </TouchableOpacity>
       </ImageBackground>
     )
   }
@@ -510,9 +513,6 @@ const Home = () => {
     )
   }
 
-
-
-
   if (loading) {
     return (
       <View style={styles.centerLogo}>
@@ -522,51 +522,47 @@ const Home = () => {
     );
   }
   return (
-    <View style={[CommonStyles.container, { paddingBottom: Platform.OS === 'ios' ? responsiveHeight(12) : responsiveHeight(15) }]}>
-        <Logo  style={styles.centerContainer}/>
-      {renderHeader()}
-      <ScrollView
-        style={styles.scrollContent}
-      >
-        {!detailsCompleted && (
-          <PromoCard
-            SvgImage={CompleteKycCard}
-            title="Complete KYC to invest"
-            subtitle="Simple & quick . Digilocker verified"
-            ctaText="Complete KYC →"
-            borderColor={Colors.lightGrren}
-            onPress={handleKYC}
-          />
-        )}
-        {!!portfolioData?.data && (
-
-          <BlueBoxContainer />
-
-        )}
-        <RenderServices />
-        {!!portfolioData?.data && (
-
-          <RenderInvestmmentOverview />
-        )}
-        <TouchableOpacity onPress={handleStartSip} style={{ alignSelf: 'center' }}>
-          <Image source={images.SIPButton} />
-        </TouchableOpacity>
-        <SchemeContainer />
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'purple',
-            padding: 10,
-            alignSelf: 'center',
-            marginTop: 10,
-            borderRadius: 8
-          }}
-          onPress={() => navigation.navigate('LarkWebView', {
-            phoneNumber: '9999999999',
-          })}
-        >
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Test Lark SDK</Text>
-        </TouchableOpacity>
-      </ScrollView>
+    <View style={CommonStyles.container}>
+      <Logo style={styles.centerContainer} />
+      <ImageBackground source={images.BGImg} style={styles.scrollContent}>
+        {renderHeader()}
+        <ScrollView
+          style={styles.paddingScrollContent} >
+          <Money style={styles.moneyImgStyle} />
+          <View style={styles.rowStyle}>
+            <TouchableOpacity >
+              <InvestorBtn />
+            </TouchableOpacity>
+            <TouchableOpacity >
+              <ExistingInvestor />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.rowStyle}>
+            <TouchableOpacity >
+              <BondsBtn />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <InsuranceBtn />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.moneyImgStyle}  onPress={() => navigation.navigate('LarkWebView', {
+              phoneNumber: '9999999999',
+            })}>
+            <LoanBtn />
+          </TouchableOpacity>
+           <View style={styles.rowStyle}>
+            <TouchableOpacity >
+             <CalculatorImg/>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <HiAiImg/>
+            </TouchableOpacity>
+          </View>
+            <TouchableOpacity style={styles.moneyImgStyle}>
+              <TrazzyImg/>
+            </TouchableOpacity>
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
@@ -591,9 +587,23 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(2)
   },
   scrollContent: {
-    paddingHorizontal: responsiveWidth(5),
+    flex: 1,
+      paddingBottom:responsiveHeight(13)
   },
-
+  paddingScrollContent: {
+    paddingHorizontal: responsiveWidth(5),
+  
+  },
+  moneyImgStyle: {
+    marginTop: responsiveHeight(3),
+    alignSelf: 'center'
+  },
+  rowStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: responsiveHeight(2)
+  },
   portfolioRow: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -633,23 +643,38 @@ const styles = StyleSheet.create({
     width: responsiveWidth(80),
 
   },
-  quoteText:{
-   fontSize:14,
+  quoteText: {
+    fontSize: 14,
     marginTop: responsiveHeight(0.5),
     fontFamily: Fonts.Semibold700,
     color: Colors.white,
     marginLeft: responsiveWidth(7),
     width: responsiveWidth(85),
-  
+
   },
-  autorText:{
-    fontSize:14,
+  autorText: {
+    fontSize: 14,
     marginTop: responsiveHeight(0.3),
     fontFamily: Fonts.Semibold700,
     color: Colors.white,
     marginRight: responsiveWidth(15),
-    alignSelf:'flex-end',
-    marginBottom:responsiveHeight(5)
+    alignSelf: 'flex-end',
+    marginBottom: responsiveHeight(1)
+  },
+  balanceBtn: {
+    backgroundColor: Colors.greenBtn,
+    paddingHorizontal: responsiveHeight(1.5),
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: responsiveWidth(2),
+    alignSelf: 'center',
+    bottom: responsiveHeight(-1),
+  },
+  balanceBtnText: {
+    fontSize: 12,
+    fontFamily: Fonts.Semibold700,
+    color: Colors.white
   },
   blueContainerStyle: {
     borderRadius: 10,

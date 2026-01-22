@@ -8,7 +8,8 @@ const images = {
   NightBg: require(`${BASEURL}NightBg.png`),
   WelcomeImg: require(`${BASEURL}Welcome.png`),
   LoginBG: require(`${BASEURL}LoginBG.png`),
-  OTPVerifiedSuccessimg: require(`${BASEURL}OTPVerifiedSuccessimg.png`)
+  OTPVerifiedSuccessimg: require(`${BASEURL}OTPVerifiedSuccessimg.png`),
+  BGImg: require(`${BASEURL}BGImg.png`)
 }
 
 export default images;

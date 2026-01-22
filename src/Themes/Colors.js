@@ -29,8 +29,8 @@ const Colors = {
   DARKGREY: '#346C8ACC',
   newOrange: '#E7AB15',
   OFFWHITE:'rgba(242, 242, 242, 0.88)',
-  Light_skyBlue:'#1669C9'
-
+  Light_skyBlue:'#1669C9',
+  greenBtn:'#319475'
 
 };
 
