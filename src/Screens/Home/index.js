@@ -24,17 +24,17 @@ const Home = () => {
     const hour = new Date().getHours();
 
     if (hour >= 5 && hour < 12) {
-      return {  background: images.MrngBg };
+      return { background: images.MrngBg };
     } else if (hour >= 12 && hour < 17) {
       return { background: images.NoonBg };
     } else if (hour >= 17 && hour < 20) {
-      return {  background: images.EvngBg };
+      return { background: images.EvngBg };
     } else {
-      return {  background: images.NightBg };
+      return { background: images.NightBg };
     }
   };
 
-  const {  background } = getGreetingData();
+  const { background } = getGreetingData();
 
   const renderHeader = () => {
 
@@ -42,17 +42,17 @@ const Home = () => {
       <ImageBackground source={background} imageStyle={{ borderRadius: 18 }}>
         <WebViewContainer />
         <Text allowFontScaling={false} style={styles.prflNameText}>Welcome M/s Chennai Super Kings Pvt Ltd,</Text>
- {thoughts?.thought && (
-        <Text allowFontScaling={false} style={styles.quoteText}>
-          “{thoughts.thought}”
-        </Text>
-      )}
+        {thoughts?.thought && (
+          <Text allowFontScaling={false} style={styles.quoteText}>
+            “{thoughts.thought}”
+          </Text>
+        )}
 
-      {thoughts?.writer && (
-        <Text allowFontScaling={false} style={styles.autorText}>
-          — {thoughts.writer}
-        </Text>
-      )}
+        {thoughts?.writer && (
+          <Text allowFontScaling={false} style={styles.autorText}>
+            — {thoughts.writer}
+          </Text>
+        )}
         <TouchableOpacity style={styles.balanceBtn}>
           <Text allowFontScaling={false} style={styles.balanceBtnText}>Check your Balance</Text>
         </TouchableOpacity>
@@ -61,32 +61,32 @@ const Home = () => {
   }
 
 
-const fetchDashboardPortfolio = async () => {
-  try {
-    const ClientId = await AsyncStorage.getItem('clientID');
+  const fetchDashboardPortfolio = async () => {
+    try {
+      const ClientId = await AsyncStorage.getItem('clientID');
 
-    if (!ClientId) {
-      console.warn('No client ID found in AsyncStorage');
-      return;
+      if (!ClientId) {
+        console.warn('No client ID found in AsyncStorage');
+        return;
+      }
+
+      const response = await axios.get(
+        `${baseURL}${endpoints.DASHBOARD}${ClientId}`
+      );
+
+      if (response.data?.response?.status) {
+        const res = response.data.response;
+
+        setThoughts(res.data?.thoughts || null);
+        setPortfolioData(res);
+      }
+
+    } catch (error) {
+      console.error('API error:', error.message);
+    } finally {
+      setLoading(false);
     }
-
-    const response = await axios.get(
-      `${baseURL}${endpoints.DASHBOARD}${ClientId}`
-    );
-
-    if (response.data?.response?.status) {
-      const res = response.data.response;
-
-      setThoughts(res.data?.thoughts || null);
-      setPortfolioData(res);
-    }
-
-  } catch (error) {
-    console.error('API error:', error.message);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -116,7 +116,7 @@ const fetchDashboardPortfolio = async () => {
             <TouchableOpacity >
               <InvestorBtn />
             </TouchableOpacity>
-            <TouchableOpacity onPress={navigation.navigate('MutualFund')}>
+            <TouchableOpacity >
               <ExistingInvestor />
             </TouchableOpacity>
           </View>
@@ -135,18 +135,26 @@ const fetchDashboardPortfolio = async () => {
           </TouchableOpacity>
           <View style={styles.rowStyle}>
             <TouchableOpacity >
-              <CalculatorImg />
-                             <Text allowFontScaling={false} style={styles.balanceBtnText}>FPS Calculator</Text>
-             <Text allowFontScaling={false} style={styles.balanceBtnText}>Explore the world of imagination.</Text>
+              <ImageBackground source={images.CalculatorBox}>
+                <CalculatorImg />
+                <Text allowFontScaling={false} style={styles.balanceBtnText}>FPS Calculator</Text>
+                <Text allowFontScaling={false} style={styles.balanceBtnText}>Explore the world of imagination.</Text>
+              </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity>
-              <HiAiImg />
-                             <Text allowFontScaling={false} style={styles.balanceBtnText}>HiAi SAYS</Text>
-             <Text allowFontScaling={false} style={styles.balanceBtnText}>Your one stop solution for market insights.</Text>
+              <ImageBackground source={images.CalculatorBox}>
+                <HiAiImg />
+                <Text allowFontScaling={false} style={styles.balanceBtnText}>HiAi SAYS</Text>
+                <Text allowFontScaling={false} style={styles.balanceBtnText}>Your one stop solution for market insights.</Text>
+              </ImageBackground>
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.moneyImgStyle}>
-            <TrazzyImg />
+            <ImageBackground source={images.TrazzyWorldBox}>
+              <TrazzyImg />
+              <Text allowFontScaling={false} style={styles.balanceBtnText}>Trazyy World</Text>
+              <Text allowFontScaling={false} style={styles.balanceBtnText}>Treasury knowledge base.</Text>
+            </ImageBackground>
           </TouchableOpacity>
         </ScrollView>
       </ImageBackground>

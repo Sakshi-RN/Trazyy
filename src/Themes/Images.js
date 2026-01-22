@@ -9,7 +9,9 @@ const images = {
   WelcomeImg: require(`${BASEURL}Welcome.png`),
   LoginBG: require(`${BASEURL}LoginBG.png`),
   OTPVerifiedSuccessimg: require(`${BASEURL}OTPVerifiedSuccessimg.png`),
-  BGImg: require(`${BASEURL}BGImg.png`)
+  BGImg: require(`${BASEURL}BGImg.png`),
+  TrazzyWorldBox: require(`${BASEURL}TrazzyWorldBox.png`),
+  CalculatorBox: require(`${BASEURL}CalculatorBox.png`)
 }
 
 export default images;
