@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView, Image } from 'react-native';
 import Colors from '../../Themes/Colors';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useState, useCallback } from 'react';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { Fonts } from '../../Themes/Fonts';
-import { LoanBtn, InsuranceBtn, Logo, Money, InvestorBtn, ExistingInvestor, BondsBtn, CalculatorImg, HiAiImg, TrazzyImg } from '../../Assets/svg';
+import { LoanBtn, InsuranceBtn, Logo, Money, InvestorBtn, ExistingInvestor, BondsBtn, CalculatorImg, HiAiImg } from '../../Assets/svg';
 import { CommonStyles } from '../../Themes/CommonStyles';
 import images from '../../Themes/Images';
 import axios from 'axios';
@@ -78,7 +78,6 @@ const Home = () => {
         const res = response.data.response;
 
         setThoughts(res.data?.thoughts || null);
-        setPortfolioData(res);
       }
 
     } catch (error) {
@@ -135,26 +134,26 @@ const Home = () => {
           </TouchableOpacity>
           <View style={styles.rowStyle}>
             <TouchableOpacity >
-              <ImageBackground source={images.CalculatorBox}>
-                <CalculatorImg />
-                <Text allowFontScaling={false} style={styles.balanceBtnText}>FPS Calculator</Text>
-                <Text allowFontScaling={false} style={styles.balanceBtnText}>Explore the world of imagination.</Text>
+              <ImageBackground source={images.CalculatorBox} style={{ paddingHorizontal: responsiveWidth(3), paddingVertical: responsiveWidth(2), }}>
+                <View style={styles.iconsRow}>
+                  <CalculatorImg />
+                  <Text allowFontScaling={false} style={styles.CalculatorText}>FPS Calculator</Text>
+                </View>
+                <Text allowFontScaling={false} style={styles.smallText}>Explore the world of imagination.</Text>
               </ImageBackground>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <ImageBackground source={images.CalculatorBox}>
-                <HiAiImg />
-                <Text allowFontScaling={false} style={styles.balanceBtnText}>HiAi SAYS</Text>
-                <Text allowFontScaling={false} style={styles.balanceBtnText}>Your one stop solution for market insights.</Text>
+            <TouchableOpacity >
+              <ImageBackground source={images.CalculatorBox} style={{ paddingHorizontal: responsiveWidth(3), paddingVertical: responsiveWidth(2) }}>
+                <View style={styles.iconsRow}>
+                  <HiAiImg />
+                  <Text allowFontScaling={false} style={styles.CalculatorText}>HiAi SAYS</Text>
+                </View>
+                <Text allowFontScaling={false} style={styles.smallText}>Your one stop solution for market insights.</Text>
               </ImageBackground>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.moneyImgStyle}>
-            <ImageBackground source={images.TrazzyWorldBox}>
-              <TrazzyImg />
-              <Text allowFontScaling={false} style={styles.balanceBtnText}>Trazyy World</Text>
-              <Text allowFontScaling={false} style={styles.balanceBtnText}>Treasury knowledge base.</Text>
-            </ImageBackground>
+          <TouchableOpacity>
+            <Image source={images.TrazzyWorldBox} style={styles.moneyImgStyle} />
           </TouchableOpacity>
         </ScrollView>
       </ImageBackground>
@@ -180,7 +179,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: responsiveHeight(2)
+    marginTop: responsiveHeight(2.5)
+  },
+  iconsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   centerLogo: {
@@ -195,7 +198,7 @@ const styles = StyleSheet.create({
   },
   prflNameText: {
     fontSize: 20,
-    marginTop: responsiveHeight(2.5),
+    marginTop: responsiveHeight(1.5),
     fontFamily: Fonts.Semibold700,
     color: Colors.white,
     marginLeft: responsiveWidth(7),
@@ -203,7 +206,7 @@ const styles = StyleSheet.create({
 
   },
   quoteText: {
-    fontSize: 14,
+    fontSize: 13,
     marginTop: responsiveHeight(0.5),
     fontFamily: Fonts.Semibold700,
     color: Colors.white,
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
 
   },
   autorText: {
-    fontSize: 14,
+    fontSize: 13,
     marginTop: responsiveHeight(0.3),
     fontFamily: Fonts.Semibold700,
     color: Colors.white,
@@ -235,6 +238,20 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Semibold700,
     color: Colors.white
   },
+  CalculatorText: {
+    fontSize: 14,
+    fontFamily: Fonts.Semibold700,
+    color: Colors.black,
+    marginLeft: responsiveWidth(2),
+    width: responsiveWidth(22)
+  },
+  smallText: {
+    fontSize: 11,
+    fontFamily: Fonts.Medium600,
+    color: Colors.blue,
+    width: responsiveWidth(30),
+    marginTop: responsiveHeight(0.5)
+  }
 });
 
 export default Home;
