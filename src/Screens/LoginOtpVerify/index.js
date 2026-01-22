@@ -27,7 +27,7 @@ const LoginOtpVerify = ({ route }) => {
     const [message, setMessage] = useState("");
 
     const { data, email, phone } = route.params;
-    console.log(phone, 'phone')
+
     const handleOTPChange = (newOtp) => {
         setOtp(newOtp);
         setIsOtpValid(true);
