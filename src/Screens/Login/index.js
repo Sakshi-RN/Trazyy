@@ -213,7 +213,7 @@ const Login = () => {
             }
 
             const res = data.response;
-console.log(response, '@@@res');
+
 
 
             if (res.status === "CLIENT_LOGGED_IN" && res.directLogin === true) {

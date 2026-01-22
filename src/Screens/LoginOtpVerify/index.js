@@ -155,7 +155,7 @@ const LoginOtpVerify = ({ route }) => {
                 <View style={styles.container}>
                     <Logo style={styles.headingText} />
                     <Text allowFontScaling={false} style={styles.welcomeText}>Enter code</Text>
-                    <Text allowFontScaling={false} style={styles.title}>We’ve sent an SMS with an activation code to your phone +91 97910 32570</Text>
+                    <Text allowFontScaling={false} style={styles.title}>We’ve sent an SMS with an activation code to your phone +91 {phone}</Text>
                     <OTPInput length={6} otp={otp} setOtp={handleOTPChange} isOtpValid={isOtpValid} />
                     {message !== "" && (
                         <Text style={[styles.message,

@@ -44,7 +44,7 @@ const Profile = () => {
   const fetchProfile = async () => {
     try {
       const ClientId = await AsyncStorage.getItem('clientID');
-console.log('ClientId', ClientId);
+
 
       if (!ClientId) {
         console.warn('No client ID found in AsyncStorage');

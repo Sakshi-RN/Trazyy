@@ -172,7 +172,6 @@ const EditAddresNominee = () => {
         setStateError('');
         setPincodeError('');
       } else {
-        console.log('Could not fetch primary holder details');
       }
     } catch (err) {
       console.error(err);

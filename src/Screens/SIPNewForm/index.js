@@ -148,7 +148,7 @@ const SIPNewForm = () => {
             else if (numInstallments) payload.number_of_installments = Number(numInstallments);
 
             const res = await axios.post(`${baseURL}${endpoints.ADD_SIP}`, payload);
-            console.log("res", res,payload);
+
             
             if (res.data?.response?.status) {
                 navigation.navigate("SipNewListScreen", { selected_amount: Number(amount) });
