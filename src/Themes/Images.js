@@ -11,7 +11,10 @@ const images = {
   OTPVerifiedSuccessimg: require(`${BASEURL}OTPVerifiedSuccessimg.png`),
   BGImg: require(`${BASEURL}BGImg.png`),
   TrazzyWorldBox: require(`${BASEURL}TrazzyWorldBox.png`),
-  CalculatorBox: require(`${BASEURL}CalculatorBox.png`)
+  CalculatorBox: require(`${BASEURL}CalculatorBox.png`),
+  MutualFundCardBg: require(`${BASEURL}MutualFundCardBg.png`),
+  OrderCardBg: require(`${BASEURL}OrderCardBg.png`),
+  MutualFundTrazzy: require(`${BASEURL}MutualFundTrazzy.png`),
 }
 
 export default images;

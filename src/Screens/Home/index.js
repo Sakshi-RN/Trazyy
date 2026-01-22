@@ -103,6 +103,11 @@ const Home = () => {
 
     );
   }
+
+  const handleExistingInvestor = () => {
+    navigation.navigate('MutualFund');
+  };
+
   return (
     <View style={CommonStyles.container}>
       <Logo style={styles.centerContainer} />
@@ -115,7 +120,7 @@ const Home = () => {
             <TouchableOpacity >
               <InvestorBtn />
             </TouchableOpacity>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={handleExistingInvestor}>
               <ExistingInvestor />
             </TouchableOpacity>
           </View>

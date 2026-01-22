@@ -57,7 +57,7 @@ const HomeStackNav = createStackNavigator();
 export const HomeStack = (props) => {
     return (
         <HomeStackNav.Navigator
-            initialRouteName="MutualFund"
+            initialRouteName="Home"
             screenOptions={{
                 headerShown: false,
             }} >
