@@ -14,7 +14,7 @@ import styles from './styles';
 import * as Linking from 'expo-linking';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getEnvVars from '../../utils/config';
-import { LoginImg, Logo } from '../../Assets/svg';
+import { LoginImg, Logo, SignInBtn } from '../../Assets/svg';
 
 
 
@@ -354,13 +354,21 @@ const Login = () => {
                                     {error.api}
                                 </Text>
                             ) : null}
-
-                            <CustomButton
-                                title={loading ? <Loader /> : "Sign In"}
-                                onPress={handleSignIn}
-                                buttonStyle={styles.glassButton}
+                            <TouchableOpacity
                                 disabled={loading}
-                            />
+                                onPress={handleSignIn}
+                                style={styles.glassButton}
+                            >
+                                {loading ? (
+                                    <Loader />
+                                ) : (
+                                    <SignInBtn
+                                        width={responsiveWidth(40)}
+                                        height={responsiveHeight(8)}
+                                    />
+                                )}
+                            </TouchableOpacity>
+
 
                             <View style={styles.footerSection}>
                                 <Text allowFontScaling={false} style={styles.futureText}>New to Trazyy?</Text>

@@ -20,6 +20,8 @@ const Home = () => {
   const [thoughts, setThoughts] = useState(null);
 
 
+  const [userPhone, setUserPhone] = useState(null);
+
   const getGreetingData = () => {
     const hour = new Date().getHours();
 
@@ -64,6 +66,18 @@ const Home = () => {
   const fetchDashboardPortfolio = async () => {
     try {
       const ClientId = await AsyncStorage.getItem('clientID');
+      const clientDetailsString = await AsyncStorage.getItem('clientsDetails');
+
+      if (clientDetailsString) {
+        try {
+          const clientDetails = JSON.parse(clientDetailsString);
+          if (clientDetails?.phone) {
+            setUserPhone(clientDetails.phone);
+          }
+        } catch (e) {
+          console.log('Error parsing client details', e);
+        }
+      }
 
       if (!ClientId) {
         console.warn('No client ID found in AsyncStorage');
@@ -133,7 +147,7 @@ const Home = () => {
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.moneyImgStyle} onPress={() => navigation.navigate('LarkWebView', {
-            phoneNumber: '9999999999',
+            phoneNumber: userPhone || '9999999999',
           })}>
             <LoanBtn />
           </TouchableOpacity>

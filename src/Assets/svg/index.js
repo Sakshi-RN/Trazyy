@@ -76,10 +76,11 @@ import OrderCard from './OrderCard.svg';
 import RecommendationsCard from './RecommendationsCard.svg';
 import InvestFundCard from './InvestFundCard.svg';
 import CreateFundCard from './CreateFundCard.svg';
+import SignInBtn from './SignInBtn.svg';
 
 
 
 
 
-export {CreateFundCard,InvestFundCard,RecommendationsCard,OrderCard,ExistingInvestor,InvestorBtn,BondsBtn,InsuranceBtn,LoanBtn,CalculatorImg,HiAiImg,TrazzyImg,Money,GetStartBtn,LetStartBtn,ActiveLoan,LoanIcon,LoginImg,InvesTekLogo,EmptyCart,SelectScheme,SelectFolio,LumpsumAmountProgress,ReferalGroup,InvesTekRow,ReferralSecondProgress,ReferalSuccessProgress,ReferalFirstprogress,SIPConsentProgress,EditKYCFirstProgress,NomineeThirdProgress,NomineeSecondProgress,NomineeFirstProgress,SIPNewProgress,InsuranceLife,InsuranceMotor,InsuranceHealth,OneTimeFailure,SipSuccessProgress,SipFailuredProgress,FailuresImg,CompleteKycCard,StartSIP,OneTime,DailySip,SIPThirdProgress,SIPSecondProgress,SIPFirstprogress,BankThirdProgress,BankSecondProgress,BankFirstprogress,SuccessImg,ThirdProgress,SecondProgress,Firstprogress,OffersFrame,MotorImg,OtherImg,LifeImg,HealthImg,SecureImg,SIPImg,ReferImg,MutualFundCard,LearnmoreCard,InsuranceCard,ActiveInsurance, InsuranceIcon, Peopleusers, ActiveProfile, Activehome,HomeArrow,HomeIcon,Backarrow,Logo,LeftArrow,BondIcon,ActiveBondIcon}
+export {SignInBtn,CreateFundCard,InvestFundCard,RecommendationsCard,OrderCard,ExistingInvestor,InvestorBtn,BondsBtn,InsuranceBtn,LoanBtn,CalculatorImg,HiAiImg,TrazzyImg,Money,GetStartBtn,LetStartBtn,ActiveLoan,LoanIcon,LoginImg,InvesTekLogo,EmptyCart,SelectScheme,SelectFolio,LumpsumAmountProgress,ReferalGroup,InvesTekRow,ReferralSecondProgress,ReferalSuccessProgress,ReferalFirstprogress,SIPConsentProgress,EditKYCFirstProgress,NomineeThirdProgress,NomineeSecondProgress,NomineeFirstProgress,SIPNewProgress,InsuranceLife,InsuranceMotor,InsuranceHealth,OneTimeFailure,SipSuccessProgress,SipFailuredProgress,FailuresImg,CompleteKycCard,StartSIP,OneTime,DailySip,SIPThirdProgress,SIPSecondProgress,SIPFirstprogress,BankThirdProgress,BankSecondProgress,BankFirstprogress,SuccessImg,ThirdProgress,SecondProgress,Firstprogress,OffersFrame,MotorImg,OtherImg,LifeImg,HealthImg,SecureImg,SIPImg,ReferImg,MutualFundCard,LearnmoreCard,InsuranceCard,ActiveInsurance, InsuranceIcon, Peopleusers, ActiveProfile, Activehome,HomeArrow,HomeIcon,Backarrow,Logo,LeftArrow,BondIcon,ActiveBondIcon}
     

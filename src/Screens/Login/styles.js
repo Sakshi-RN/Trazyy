@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
 
@@ -49,12 +49,14 @@ const styles = StyleSheet.create({
     },
 
     glassButton: {
-        marginTop: responsiveHeight(3),
+        marginTop: responsiveHeight(2),
         alignSelf: 'center',
+
     },
     footerSection: {
         marginTop: responsiveHeight(2),
         alignItems: 'center',
+        
     },
     futureText: {
         fontSize: 14,
