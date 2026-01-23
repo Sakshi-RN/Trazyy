@@ -30,7 +30,8 @@ const Colors = {
   newOrange: '#E7AB15',
   OFFWHITE:'rgba(242, 242, 242, 0.88)',
   Light_skyBlue:'#1669C9',
-  greenBtn:'#319475'
+  greenBtn:'#319475',
+  lightPurple:'#E8DEF8',
 
 };
 

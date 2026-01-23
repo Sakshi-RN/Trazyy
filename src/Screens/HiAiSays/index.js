@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Image, ImageBackground } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Image, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 import { LinearGradient } from 'expo-linear-gradient';
 import WebViewContainer from '../../Components/WebViewContainer';
@@ -15,7 +15,6 @@ const HiAiSays = () => {
     const [selectedMonth, setSelectedMonth] = useState('December');
     const [selectedYear, setSelectedYear] = useState('2025');
 
-    // Placeholder data for the cards
     const data = [
         {
             id: '1',
@@ -47,8 +46,8 @@ const HiAiSays = () => {
             <TouchableOpacity>
                 <Image source={item.image} style={styles.cardImage} />
                 <View >
-                    <Text style={styles.cardTitle}>{item.title}</Text>
-                    <Text style={styles.cardDate}>{item.date}</Text>
+                    <Text allowFontScaling={false} style={styles.cardTitle}>{item.title}</Text>
+                    <Text allowFontScaling={false} style={styles.cardDate}>{item.date}</Text>
                 </View>
             </TouchableOpacity>
         </LinearGradient>
@@ -65,16 +64,16 @@ const HiAiSays = () => {
             <WebViewContainer />
             <View style={styles.filterContainer}>
                 <View style={styles.filterWrapper}>
-                    <Text style={styles.filterLabel}>Month</Text>
+                    <Text allowFontScaling={false} style={styles.filterLabel}>Month</Text>
                     <TouchableOpacity style={styles.dropdown}>
-                        <Text style={styles.dropdownText}>{selectedMonth}</Text>
+                        <Text allowFontScaling={false} style={styles.dropdownText}>{selectedMonth}</Text>
                         <Ionicons name="chevron-down" size={20} color="#333" />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.filterWrapper}>
-                    <Text style={styles.filterLabel}>Year</Text>
+                    <Text allowFontScaling={false} style={styles.filterLabel}>Year</Text>
                     <TouchableOpacity style={styles.dropdown}>
-                        <Text style={styles.dropdownText}>{selectedYear}</Text>
+                        <Text allowFontScaling={false} style={styles.dropdownText}>{selectedYear}</Text>
                         <Ionicons name="chevron-down" size={20} color="#333" />
                     </TouchableOpacity>
                 </View>

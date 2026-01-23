@@ -171,7 +171,7 @@ const Home = () => {
               </ImageBackground>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('TrazyyUniversity')}>
             <Image source={images.TrazzyWorldBox} style={styles.moneyImgStyle} />
           </TouchableOpacity>
         </ScrollView>
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
 
   },
   moneyImgStyle: {
-    marginTop: responsiveHeight(3),
+    marginTop: responsiveHeight(2),
     alignSelf: 'center'
   },
   rowStyle: {
