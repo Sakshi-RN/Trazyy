@@ -30,18 +30,15 @@ const LarkWebView = ({ route, navigation }) => {
                     throw new Error('Missing API Key or Secret');
                 }
 
-                console.log('LarkSDK: Initializing with API Key length:', apiKey?.length);
                 await sdk.initialize({
                     apiKey: apiKey,
                     apiSecret: apiSecret,
                     phoneNumber: phoneNumber,
                 });
-                console.log('LarkSDK: Initialized function called');
                 setIsSdkInitialized(true);
 
                 // Helper to handle events
                 sdk.on('READY', () => {
-                    console.log('LarkSDK: EVENT RECEIVED - READY');
                     setLoading(false);
                 });
 
@@ -52,12 +49,10 @@ const LarkWebView = ({ route, navigation }) => {
                 });
 
                 sdk.on('CLOSE', () => {
-                    console.log('LarkSDK: EVENT RECEIVED - CLOSE');
                     navigation.goBack();
                 });
 
                 sdk.on('CLOSE_FRAME', () => {
-                    console.log('LarkSDK: EVENT RECEIVED - CLOSE_FRAME');
                     navigation.goBack();
                 });
 

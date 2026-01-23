@@ -51,6 +51,7 @@ import LarkWebView from '../Screens/LarkWebView';
 import MutualFund from '../Screens/MutualFund';
 import HiAiSays from '../Screens/HiAiSays';
 import TrazyyUniversity from '../Screens/TrazyyUniversity';
+import AsperoWebView from '../Screens/AsperoWebView';
 
 
 
@@ -115,6 +116,7 @@ export const HomeStack = (props) => {
             <HomeStackNav.Screen name="MutualFund" component={MutualFund} />
             <HomeStackNav.Screen name="HiAiSays" component={HiAiSays} />
             <HomeStackNav.Screen name="TrazyyUniversity" component={TrazyyUniversity} />
+            <HomeStackNav.Screen name="AsperoWebView" component={AsperoWebView} />
         </HomeStackNav.Navigator>
     );
 }

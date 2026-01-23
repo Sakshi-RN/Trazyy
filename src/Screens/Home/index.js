@@ -18,8 +18,7 @@ const Home = () => {
   const { baseURL, endpoints } = getEnvVars();
   const [loading, setLoading] = useState(true);
   const [thoughts, setThoughts] = useState(null);
-
-
+  const [asperoLoading, setAsperoLoading] = useState(false);
   const [userPhone, setUserPhone] = useState(null);
 
   const getGreetingData = () => {
@@ -107,6 +106,40 @@ const Home = () => {
     }, [])
   );
 
+  const handleBondsPress = async () => {
+    try {
+      setAsperoLoading(true);
+
+      const clientId = await AsyncStorage.getItem('clientID');
+
+      if (!clientId) {
+        console.warn('Client ID not found');
+        return;
+      }
+
+      const response = await axios.get(
+        `https://apidev.investek.in/asperoEngine/asperoLogin/${clientId}`
+      );
+
+      const apiResponse = response?.data?.response;
+
+      if (apiResponse?.status) {
+        const redirectUrl = apiResponse?.data?.redirectUrl;
+
+        if (redirectUrl) {
+          navigation.navigate('AsperoWebView', {
+            url: redirectUrl,
+          });
+        }
+      } else {
+        console.warn(apiResponse?.message || 'Aspero login failed');
+      }
+    } catch (error) {
+      console.error('Aspero API error:', error.message);
+    } finally {
+      setAsperoLoading(false);
+    }
+  };
 
 
   if (loading) {
@@ -139,7 +172,7 @@ const Home = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.rowStyle}>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={handleBondsPress}>
               <BondsBtn />
             </TouchableOpacity>
             <TouchableOpacity>
