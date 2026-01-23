@@ -161,7 +161,7 @@ const Home = () => {
                 <Text allowFontScaling={false} style={styles.smallText}>Explore the world of imagination.</Text>
               </ImageBackground>
             </TouchableOpacity>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={() => navigation.navigate('HiAiSays')}>
               <ImageBackground source={images.CalculatorBox} style={{ paddingHorizontal: responsiveWidth(3), paddingVertical: responsiveWidth(2) }}>
                 <View style={styles.iconsRow}>
                   <HiAiImg />

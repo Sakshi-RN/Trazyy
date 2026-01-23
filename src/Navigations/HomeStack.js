@@ -49,6 +49,7 @@ import ReferralSuccessPage from '../Screens/ReferralSuccessPage';
 import CommonSuccessPage from '../Screens/CommonSuccessPage'
 import LarkWebView from '../Screens/LarkWebView';
 import MutualFund from '../Screens/MutualFund';
+import HiAiSays from '../Screens/HiAiSays';
 
 
 
@@ -111,6 +112,7 @@ export const HomeStack = (props) => {
             <HomeStackNav.Screen name="LarkWebView" component={LarkWebView} />
             <HomeStackNav.Screen name="CommonSuccessPage" component={CommonSuccessPage} />
             <HomeStackNav.Screen name="MutualFund" component={MutualFund} />
+            <HomeStackNav.Screen name="HiAiSays" component={HiAiSays} />
         </HomeStackNav.Navigator>
     );
 }

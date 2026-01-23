@@ -13,6 +13,7 @@ import Loader from '../../Components/Loader';
 import WebViewContainer from '../../Components/WebViewContainer';
 import getEnvVars from '../../utils/config';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const MutualFund = () => {
   const { baseURL, endpoints } = getEnvVars();
@@ -114,7 +115,12 @@ const MutualFund = () => {
     const xiir = portfolioData?.data?.returns?.data?.rows?.[0]?.[6] || 0;
 
     return (
-      <ImageBackground source={images.MutualFundCardBg} style={styles.balanceBtn}>
+       <LinearGradient
+                colors={[ '#1899D4','#046ABC','#046ABC', '#1899D4', '#1899D4',]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.blueContainerStyle}
+              >
         <Text allowFontScaling={false} style={styles.subheading}>Investment Snapshot</Text>
         <View style={styles.newRow}>
           <Text allowFontScaling={false} style={styles.nameText}>Current Cost</Text>
@@ -141,7 +147,7 @@ const MutualFund = () => {
           </Text>
         </View>
 
-      </ImageBackground>
+     </LinearGradient>
     )
   }
 
@@ -306,6 +312,17 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontFamily: Fonts.Semibold700,
     color: Colors.white
+  },
+    blueContainerStyle: {
+    borderRadius: 10,
+    justifyContent: 'center',
+    paddingHorizontal: responsiveWidth(5),
+    paddingVertical: responsiveHeight(1),
+    top: responsiveHeight(-3),
+    marginHorizontal:responsiveWidth(5),
+    borderWidth:1,
+    borderColor:Colors.white
+
   },
 });
 

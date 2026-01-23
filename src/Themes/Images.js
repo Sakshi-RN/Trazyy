@@ -15,6 +15,7 @@ const images = {
   MutualFundCardBg: require(`${BASEURL}MutualFundCardBg.png`),
   OrderCardBg: require(`${BASEURL}OrderCardBg.png`),
   MutualFundTrazzy: require(`${BASEURL}MutualFundTrazzy.png`),
+  MutualFundbox: require(`${BASEURL}MutualFundbox.png`),
 }
 
 export default images;

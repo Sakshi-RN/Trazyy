@@ -10,28 +10,37 @@ import { useCartCounts } from '../../utils/CartCountContext';
 const CustomHeader = ({
   title,
   showBack = false,
-  showLogo = false
+  showLogo = false,
+  showNotification = false,
+  onNotificationPress
 }) => {
   const navigation = useNavigation();
-  const { sipCount, lumpsumCount } = useCartCounts();
-const totalCount = sipCount + lumpsumCount;
-
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
-
-  const handleCart = () => {
-    navigation.navigate('MyCart');
-  };
 
   return (
     <View style={styles.headerContainer}>
-      <View style={styles.sideContainer}>
- <Logo />
-         {/* <TouchableOpacity onPress={handleCart}>
-          <Ionicons name="cart-outline" size={25} color={Colors.blue} />
-        </TouchableOpacity> */}
-</View>
+      <View style={styles.leftContainer}>
+        {showBack ? (
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Ionicons name="chevron-back" size={24} color={Colors.blue} />
+          </TouchableOpacity>
+        ) : showLogo ? (
+          <Logo width={100} height={30} />
+        ) : null}
+      </View>
+
+      <View style={styles.centerContainer}>
+        {title && <Text allowFontScaling={false} style={styles.title}>{title}</Text>}
+      </View>
+
+      <View style={styles.rightContainer}>
+        {showNotification && (
+          <TouchableOpacity onPress={onNotificationPress} style={styles.notificationButton}>
+            <Ionicons name="notifications-outline" size={24} color={Colors.blue} />
+            {/* Badge example, if needed passed as prop later */}
+            {/* <View style={styles.badge} /> */}
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -44,39 +53,43 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: responsiveWidth(4),
-        alignSelf:'center'
+    paddingVertical: responsiveHeight(2),
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+    marginTop: responsiveHeight(5) // Adjust based on safe area or need
   },
-  sideContainer: {
-    alignItems: 'center',
+  leftContainer: {
+    minWidth: 40,
+    alignItems: 'flex-start',
   },
   centerContainer: {
     flex: 1,
     alignItems: 'center',
   },
+  rightContainer: {
+    minWidth: 40,
+    alignItems: 'flex-end',
+  },
   title: {
     fontSize: 20,
-    fontFamily:Fonts.Semibold700,
-    color:Colors.blue,
+    fontFamily: Fonts.Semibold700,
+    color: Colors.blue, // Using Colors.blue based on previous file
+    textAlign: 'center',
   },
-  logo: {
-    height: 30,
-    width: 100,
+  backButton: {
+    padding: 5,
   },
-   cartBadge: {
+  notificationButton: {
+    padding: 5,
+  },
+  badge: {
     position: 'absolute',
-    top: -5,
-    right: responsiveWidth(-1),
-    backgroundColor: Colors.red,
-    borderRadius:9,
-    width:18,
-    height:18,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cartBadgeText: {
-    color: 'white',
-    fontSize: 11,
-    fontFamily:Fonts.Semibold700,
+    top: 5,
+    right: 5,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'red',
   },
 });
 
