@@ -57,7 +57,7 @@ export default {
         ],
         extra: {
             eas: {
-                projectId: "46de45e4-5516-4c0e-b867-dc9d99c5099b"
+                projectId: "e57ab86d-0b61-48dc-8575-5c0b5a3a5b08"
             },
             APP_ENV: process.env.APP_ENV || 'dev',
         }

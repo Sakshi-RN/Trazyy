@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Platform } from 'react-native';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
@@ -6,11 +6,11 @@ import { Fonts } from '../../Themes/Fonts';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.white,
+       backgroundColor:'red'
     },
     topSection: {
         alignItems: 'center',
-        paddingTop: responsiveHeight(7),
+        paddingTop: responsiveHeight(5),
     },
     illustration: {
         width: responsiveWidth(90),
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        height: responsiveHeight(52), // Overlaps the top section slightly
+        height: responsiveHeight(52), 
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
         paddingHorizontal: responsiveWidth(6),
@@ -36,9 +36,10 @@ const styles = StyleSheet.create({
         color: Colors.white,
         marginBottom: responsiveHeight(1),
         textAlign: 'center',
+        fontWeight:'bold'
     },
     subtitleText: {
-        fontSize: 15,
+        fontSize: 14,
         fontFamily: Fonts.Medium600,
         color: Colors.white,
         textAlign: 'center',
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     },
     glassInput: {
         marginTop: responsiveHeight(2.5),
+        paddingVertical:Platform.OS === 'ios' ? responsiveHeight(1.5) : responsiveHeight(0.2),
     },
 
     glassButton: {

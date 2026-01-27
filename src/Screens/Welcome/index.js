@@ -1,4 +1,4 @@
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import { View, StyleSheet, ImageBackground,Platform } from 'react-native';
 import { responsiveHeight } from 'react-native-responsive-dimensions';
 import CustomButton from '../../Components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
   },
 
   buttonStyle: {
-    marginTop: responsiveHeight(2.5)
+    marginTop:responsiveHeight(2.5),
+        marginBottom:Platform.OS === 'ios' ? 0 : responsiveHeight(5)
+
   },
 
   footerStyle: {

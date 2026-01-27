@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
     View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
-    Keyboard, Modal
+    Keyboard, Modal,ScrollView
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -305,11 +305,10 @@ const Login = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.topSection}>
                 <Logo width={responsiveWidth(40)} height={responsiveHeight(8)} />
                 <LoginImg
-                    resizeMode="contain"
                     style={styles.illustration} />
             </View>
             <LinearGradient
@@ -364,7 +363,7 @@ const Login = () => {
                                 ) : (
                                     <SignInBtn
                                         width={responsiveWidth(40)}
-                                        height={responsiveHeight(8)}
+                                        height={responsiveHeight(6)}
                                     />
                                 )}
                             </TouchableOpacity>
@@ -381,7 +380,8 @@ const Login = () => {
                 </KeyboardAvoidingView>
                 {RenderModal()}
             </LinearGradient>
-        </View>
+
+        </ScrollView>
     );
 };
 
