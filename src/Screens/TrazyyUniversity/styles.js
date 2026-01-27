@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Platform } from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
@@ -6,13 +6,13 @@ import { Fonts } from '../../Themes/Fonts';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingBottom: responsiveHeight(5),
+        paddingBottom: Platform.OS === 'ios' ? responsiveHeight(5) : responsiveHeight(7),
     },
     headercontainer: {
         backgroundColor: Colors.white,
         paddingBottom: responsiveHeight(1),
         borderRadius: 25,
-        height: responsiveHeight(24),
+        height: Platform.OS === 'ios' ? responsiveHeight(24) : responsiveHeight(26),
         zIndex: 1,
         elevation: 1,
         position: 'relative',

@@ -54,7 +54,6 @@ import TrazyyUniversity from '../Screens/TrazyyUniversity';
 import AsperoWebView from '../Screens/AsperoWebView';
 
 
-
 const HomeStackNav = createStackNavigator();
 
 export const HomeStack = (props) => {

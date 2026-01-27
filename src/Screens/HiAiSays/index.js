@@ -20,7 +20,8 @@ const HiAiSays = () => {
             id: '1',
             title: 'Why Gujarat\'s GIFT City is a game changer for India?',
             date: 'December 31, 2025',
-            image: require('../../Assets/Images/LoginBG.png'), // Placeholder image, replace if actual assets available
+            image: require('../../Assets/Images/LoginBG.png'), // Placeholder image, replace if actual assets
+            //  available
         },
         {
             id: '2',
@@ -88,9 +89,6 @@ const HiAiSays = () => {
                     ))}
                 </View>
             </ScrollView>
-
-            {/* Bottom Navigation Mockup (if needed, otherwise rely on main tab nav) */}
-
         </ImageBackground>
     );
 };

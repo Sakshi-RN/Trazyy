@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView, Image,Platform } from 'react-native';
 import Colors from '../../Themes/Colors';
 import { useFocusEffect } from '@react-navigation/native'
 import { useState, useCallback } from 'react';
@@ -210,7 +210,8 @@ const styles = StyleSheet.create({
 
   scrollContent: {
     flex: 1,
-    paddingBottom: responsiveHeight(13)
+    paddingBottom: Platform.OS === 'ios' ? responsiveHeight(13) : responsiveHeight(16)
+
   },
   paddingScrollContent: {
     paddingHorizontal: responsiveWidth(4),
@@ -239,7 +240,8 @@ const styles = StyleSheet.create({
   },
   centerContainer: {
     alignSelf: 'center',
-    marginTop: responsiveHeight(7),
+     marginTop: Platform.OS === 'ios' ? responsiveHeight(7) : responsiveHeight(5),
+
 
   },
   prflNameText: {

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Platform } from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     headercontainer: {
         borderRadius: 25,
-        height: responsiveHeight(30),
+        height: Platform.OS === 'ios' ? responsiveHeight(30) : responsiveHeight(33),
         backgroundColor: Colors.white
     },
     filterContainer: {
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     },
     cardImage: {
         height: responsiveHeight(15),
+        width:responsiveWidth(45)
     },
     blueContainerStyle: {
         borderRadius: 10,

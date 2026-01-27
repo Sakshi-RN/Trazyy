@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
-import { WebView } from 'react-native-webview'; // SDK might use this internally, but we use the SDK wrapper
 import getEnvVars from '../../utils/config';
 import { LarkFinServSDK, LarkFinServWebView } from 'larkfinserv-react-native-sdk';
+import { responsiveHeight } from 'react-native-responsive-dimensions';
+import Colors from '../../Themes/Colors';
 
 const LarkWebView = ({ route, navigation }) => {
     // Expect these to be passed via route params or defined in env
@@ -120,7 +121,8 @@ const LarkWebView = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: Colors.white,
+        paddingBottom:responsiveHeight(12)
     },
     center: {
         flex: 1,
