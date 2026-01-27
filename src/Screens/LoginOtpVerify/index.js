@@ -158,7 +158,7 @@ const LoginOtpVerify = ({ route }) => {
                     <Text allowFontScaling={false} style={styles.title}>We’ve sent an SMS with an activation code to your phone +91 {phone}</Text>
                     <OTPInput length={6} otp={otp} setOtp={handleOTPChange} isOtpValid={isOtpValid} />
                     {message !== "" && (
-                        <Text style={[styles.message,
+                            <Text allowFontScaling={false} style={[styles.message,
                         message.includes("successfully") ? styles.successText : styles.errorText
                         ]}>
                             {message}
@@ -170,9 +170,9 @@ const LoginOtpVerify = ({ route }) => {
                         </Text>
                     ) : (
                         <View>
-                            <Text style={styles.touchableResendText} allowFontScaling={false}>
+                                <Text allowFontScaling={false} style={styles.touchableResendText} >
                                 I didn’t receive a code.{" "}
-                                <Text style={styles.resendText} allowFontScaling={false} onPress={handleResend}>
+                                    <Text allowFontScaling={false} style={styles.resendText} onPress={handleResend}>
                                     Resend
                                 </Text>
                             </Text>
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: responsiveWidth(5),
-        paddingTop: responsiveHeight(8),
+        paddingTop: responsiveHeight(8)
     },
     welcomeText: {
         fontSize: 26,
@@ -234,10 +234,12 @@ const styles = StyleSheet.create({
         marginTop: responsiveHeight(3),
         alignSelf: 'center',
         fontSize: 14,
+    
     },
     btnStyle: {
         marginTop: responsiveHeight(3),
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginBottom: Platform.OS === "ios" ? 0 : responsiveHeight(8),
     },
     errorText: {
         color: Colors.red,

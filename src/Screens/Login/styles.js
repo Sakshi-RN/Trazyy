@@ -1,4 +1,4 @@
-import { StyleSheet,Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
@@ -6,22 +6,19 @@ import { Fonts } from '../../Themes/Fonts';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-       backgroundColor:'red'
     },
     topSection: {
         alignItems: 'center',
-        paddingTop: responsiveHeight(5),
+      bottom: responsiveHeight(-5),
     },
     illustration: {
         width: responsiveWidth(90),
         height: responsiveHeight(35),
-         marginTop: responsiveHeight(1),
+        marginTop: responsiveHeight(1),
     },
     gradientCard: {
-        position: 'absolute',
-        bottom: 0,
         width: '100%',
-        height: responsiveHeight(52), 
+        minHeight: responsiveHeight(52),
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
         paddingHorizontal: responsiveWidth(6),
@@ -36,7 +33,7 @@ const styles = StyleSheet.create({
         color: Colors.white,
         marginBottom: responsiveHeight(1),
         textAlign: 'center',
-        fontWeight:'bold'
+        fontWeight: 'bold'
     },
     subtitleText: {
         fontSize: 14,
@@ -47,7 +44,7 @@ const styles = StyleSheet.create({
     },
     glassInput: {
         marginTop: responsiveHeight(2.5),
-        paddingVertical:Platform.OS === 'ios' ? responsiveHeight(1.5) : responsiveHeight(0.2),
+        paddingVertical: Platform.OS === 'ios' ? responsiveHeight(1.5) : responsiveHeight(0.2),
     },
 
     glassButton: {
@@ -58,7 +55,7 @@ const styles = StyleSheet.create({
     footerSection: {
         marginTop: responsiveHeight(2),
         alignItems: 'center',
-        
+
     },
     futureText: {
         fontSize: 14,
@@ -67,15 +64,15 @@ const styles = StyleSheet.create({
     },
     createAccountText: {
         fontSize: 13,
-        color:Colors.Light_skyBlue,
+        color: Colors.Light_skyBlue,
         fontFamily: Fonts.Semibold700,
-        marginTop:responsiveHeight(0.5),
+        marginTop: responsiveHeight(0.5),
     },
     errorText: {
-        color:Colors.blue,
+        color: Colors.blue,
         fontSize: 13,
         marginLeft: responsiveWidth(4),
-        marginTop:responsiveHeight(1),
+        marginTop: responsiveHeight(1),
         fontFamily: Fonts.Semibold700,
     },
     modalOverlay: {

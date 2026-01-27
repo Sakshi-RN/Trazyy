@@ -7,11 +7,9 @@ import { Fonts } from '../../Themes/Fonts';
 const OTPInput = ({ length = 6, otp, setOtp, isOtpValid }) => {
   const inputs = useRef([]);
 
-  // Adjust sizes based on length to prevent overflow
-  // If length is 6, we need smaller boxes to fit in one row
-  const isCompact = length > 4;
-  const boxSize = isCompact ? responsiveWidth(12) : responsiveWidth(15);
-  const gap = isCompact ? 10 : 15;
+  // Fixed size for 6 digits
+  const boxSize = responsiveWidth(13);
+  const gap = 10;
 
   const handleChange = (value, index) => {
     const newOtp = [...otp];
@@ -40,6 +38,7 @@ const OTPInput = ({ length = 6, otp, setOtp, isOtpValid }) => {
     <View style={[styles.otpContainer, { gap }]}>
       {otp.map((digit, index) => (
         <TextInput
+           allowFontScaling={false}
           key={index}
           ref={(ref) => (inputs.current[index] = ref)}
           value={digit}

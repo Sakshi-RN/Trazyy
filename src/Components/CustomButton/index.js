@@ -44,7 +44,7 @@ const getStyles = (isTablet) =>
     button: {
       borderColor: Colors.blue,
       borderRadius:15,
-      paddingVertical: isTablet ? responsiveHeight(2.2) : responsiveHeight(1.1),
+      height:  responsiveHeight(5.5),
       paddingHorizontal: isTablet ? responsiveWidth(12) : responsiveWidth(10),
       alignItems: 'center',
       justifyContent: 'center',

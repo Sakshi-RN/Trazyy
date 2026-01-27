@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
     View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
-    Keyboard, Modal,ScrollView
+    Keyboard, Modal, ScrollView
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -305,21 +305,26 @@ const Login = () => {
     };
 
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.topSection}>
-                <Logo width={responsiveWidth(40)} height={responsiveHeight(8)} />
-                <LoginImg
-                    style={styles.illustration} />
-            </View>
-            <LinearGradient
-                colors={['#0F5098', '#137962', '#D3F4EA']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0.8, y: 1 }}
-                style={styles.gradientCard}
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ flex: 1 }}
+        >
+            <ScrollView
+                style={styles.container}
+                // contentContainerStyle={{ flexGrow: 1 }}
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
             >
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    style={{ flex: 1, width: '100%' }}
+                <View style={styles.topSection}>
+                    <Logo width={responsiveWidth(40)} height={responsiveHeight(8)} />
+                    <LoginImg
+                        style={styles.illustration} />
+                </View>
+                <LinearGradient
+                    colors={['#0F5098', '#137962', '#D3F4EA']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0.8, y: 1 }}
+                    style={styles.gradientCard}
                 >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <View>
@@ -359,7 +364,9 @@ const Login = () => {
                                 style={styles.glassButton}
                             >
                                 {loading ? (
-                                    <Loader />
+                                    <View style={{ width: responsiveWidth(40), height: responsiveHeight(6), justifyContent: 'center', alignItems: 'center' }}>
+                                        <Loader size="large" color={Colors.blue} />
+                                    </View>
                                 ) : (
                                     <SignInBtn
                                         width={responsiveWidth(40)}
@@ -377,11 +384,11 @@ const Login = () => {
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
-                </KeyboardAvoidingView>
-                {RenderModal()}
-            </LinearGradient>
+                    {RenderModal()}
+                </LinearGradient>
 
-        </ScrollView>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
