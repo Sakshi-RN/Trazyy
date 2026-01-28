@@ -139,6 +139,11 @@ height:responsiveHeight(25),
         textAlign: 'center',
         fontFamily: Fonts.Medium600,
     },
+      errorText: {
+    color: Colors.red,
+    fontSize: 13,
+    fontFamily: Fonts.Semibold700,
+  },
 });
 
 export default styles;

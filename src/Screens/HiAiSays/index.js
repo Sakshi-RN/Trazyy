@@ -51,12 +51,21 @@ const HiAiSays = () => {
                 year: parseInt(selectedYear)
             };
 
-            console.log("Fetching HiAiSays params:", payload);
+            // payload has camelCase 'categoryId'. Response uses snake_case 'category_id'.
+            // Sending both in params to cover bases since POST failed and GET body is not possible.
+            const queryParams = {
+                ...payload,
+                category_id: payload.categoryId
+            };
+
+            console.log("Fetching HiAiSays params (GET):", queryParams);
 
             const response = await axios.get(
                 `${baseURL}${endpoints.UNIVERSITIES}`,
-                { params: payload }
+                { params: queryParams }
             );
+
+            console.log('HiAiSays API Response:', JSON.stringify(response.data));
 
             if (response.data?.status && (response.data?.statusCode === "0" || response.data?.statusCode === 0)) {
                 setData(response.data?.response || []);
@@ -66,6 +75,10 @@ const HiAiSays = () => {
             }
         } catch (error) {
             console.error('HiAiSays Fetch Error:', error);
+            if (error.response) {
+                console.log('Error Data:', JSON.stringify(error.response.data));
+                console.log('Error Status:', error.response.status);
+            }
             setData([]);
         } finally {
             setLoading(false);
@@ -173,8 +186,8 @@ const HiAiSays = () => {
                             ))}
                         </View>
                     ) : (
-                        <View style={{ marginTop: 50, alignItems: 'center' }}>
-                            <Text allowFontScaling={false} style={{ color: '#333', fontSize: 16 }}>No data available</Text>
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Text allowFontScaling={false} style={styles.errorText}>No data available</Text>
                         </View>
                     )}
                 </ScrollView>
