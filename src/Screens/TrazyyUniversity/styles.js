@@ -6,7 +6,7 @@ import { Fonts } from '../../Themes/Fonts';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingBottom: Platform.OS === 'ios' ? responsiveHeight(5) : responsiveHeight(7),
+        paddingBottom: Platform.OS === 'ios' ? responsiveHeight(15) : responsiveHeight(17),
     },
     headercontainer: {
         backgroundColor: Colors.white,
@@ -132,9 +132,13 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     descriptionText: {
-        fontSize: 9,
-        color: '#e0e0e0',
-        lineHeight: 12,
+        fontSize: 11,
+        color:Colors.black,
+        lineHeight: 14,
+        width: responsiveWidth(40),
+        fontFamily:Fonts.Semibold700,
+        marginTop:responsiveHeight(1)
+
     },
     actionRow: {
         flexDirection: 'row',

@@ -63,7 +63,7 @@ const TrazyyUniversity = () => {
                 </View>
                 <Text allowFontScaling={false} style={styles.cardTitle}>{item.university_name}</Text>
             </View>
-            <Text allowFontScaling={false} style={styles.descriptionText} numberOfLines={3}>
+            <Text allowFontScaling={false} style={styles.descriptionText}>
                 {item.description}
             </Text>
             {/* <View style={styles.actionRow}>
