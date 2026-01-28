@@ -1,4 +1,4 @@
-import { StyleSheet,Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
-        top:responsiveHeight(-3)
+        top: responsiveHeight(-3)
     },
     headercontainer: {
         borderRadius: 25,
@@ -75,29 +75,28 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         paddingHorizontal: responsiveWidth(4),
-        paddingBottom: responsiveHeight(10), // Space for bottom nav
+        paddingBottom: responsiveHeight(10),
     },
     gridItem: {
-        width: '48%', // 2 columns
+        width: '48%', 
         marginBottom: responsiveHeight(2),
     },
     cardContainer: {
-        backgroundColor: 'transparent', // The gradient background of the screen should show? Or card has its own bg?
-        // Based on image, cards look like they have images as backgrounds or just image top + color bottom.
-        // The design shows the text OVER the blue part of the card.
+        backgroundColor: 'transparent', 
         borderRadius: 10,
         overflow: 'hidden',
         height: responsiveHeight(25),
     },
     cardImage: {
         height: responsiveHeight(15),
-        width:responsiveWidth(45)
+        width: responsiveWidth(45)
     },
     blueContainerStyle: {
         borderRadius: 10,
         borderWidth: 1,
         borderColor: Colors.white,
         width: responsiveWidth(45),
+height:responsiveHeight(25),
 
     },
 
@@ -115,7 +114,30 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.Semibold700,
         marginTop: responsiveHeight(1),
         marginLeft: responsiveWidth(3),
-        marginBottom: responsiveHeight(1),
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    pickerContent: {
+        backgroundColor: 'white',
+        width: '80%',
+        borderRadius: 10,
+        padding: 20,
+        maxHeight: responsiveHeight(50),
+    },
+    pickerItem: {
+        paddingVertical: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: '#eee',
+    },
+    pickerItemText: {
+        fontSize: 16,
+        color: Colors.blue,
+        textAlign: 'center',
+        fontFamily: Fonts.Medium600,
     },
 });
 
