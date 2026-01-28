@@ -5,6 +5,8 @@ import { LarkFinServSDK, LarkFinServWebView } from 'larkfinserv-react-native-sdk
 import { responsiveHeight } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 
+import CustomHeader from '../../Components/CustomHeader';
+
 const LarkWebView = ({ route, navigation }) => {
     // Expect these to be passed via route params or defined in env
     const {
@@ -101,6 +103,7 @@ const LarkWebView = ({ route, navigation }) => {
     // We can use mode="inline" to render it directly in this view
     return (
         <View style={styles.container}>
+            <CustomHeader title="Loan" showBack={true} />
             {isSdkInitialized && (
                 <LarkFinServWebView
                     sdk={sdk}
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.white,
-        paddingBottom:responsiveHeight(12)
+        paddingBottom: responsiveHeight(12)
     },
     center: {
         flex: 1,

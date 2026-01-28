@@ -13,14 +13,20 @@ import * as WebBrowser from 'expo-web-browser';
 const AboutUsPage = () => {
 
 
-    const goToRerms = () => {
-  WebBrowser.openBrowserAsync('https://investek.in/terms-of-uses/')
-    };
+  const goToRerms = () => {
+    navigation.navigate('AsperoWebView', {
+      url: 'https://investek.in/terms-of-uses/',
+    });
+  };
   const goToPrivacy = () => {
-    WebBrowser.openBrowserAsync('https://investek.in/privacy-policy/')
+    navigation.navigate('AsperoWebView', {
+      url: 'https://investek.in/privacy-policy/',
+    });
   };
   const goAboutPage = () => {
-    WebBrowser.openBrowserAsync('https://investek.in/about-us/')
+    navigation.navigate('AsperoWebView', {
+      url: 'https://investek.in/about-us/',
+    });
   };
 
 

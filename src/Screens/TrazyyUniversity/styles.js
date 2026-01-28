@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         width: responsiveWidth(44),
         marginBottom: responsiveHeight(2),
         borderRadius: 10,
-        paddingVertical: responsiveHeight(1),
+        paddingVertical: responsiveHeight(5),
         borderWidth: 0.5,
         borderColor: Colors.white,
         backgroundColor: 'rgba(255,255,255,0.3)',
@@ -149,18 +149,20 @@ const styles = StyleSheet.create({
     },
     viewMoreButton: {
         alignSelf: 'center',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        backgroundColor: 'transparent', // Changed to transparent
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        marginBottom: responsiveHeight(5),
+borderWidth:1,
+borderColor:Colors.blue,
+borderRadius:12,
+height:responsiveWidth(10),
+paddingHorizontal:responsiveWidth(6),
+justifyContent:'center',
+alignItems:'center',
+margibBottom:responsiveHeight(2)
+
     },
     viewMoreText: {
-        fontSize: 12,
-        color: '#333',
-        fontWeight: 'bold',
+       color: Colors.blue,
+      fontSize: 14,
+      fontFamily: Fonts.Medium600,
     },
 });
 

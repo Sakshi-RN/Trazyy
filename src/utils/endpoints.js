@@ -65,7 +65,8 @@ const API_ENDPOINTS = {
     KYC_AADHAAR_ADDRESS: 'mutualFundEngine/kycAadhaarAddress',
     KYC_ESIGN: 'mutualFundEngine/kycEsign',
     GET_KYC_STATUS: 'mutualFundEngine/getKYCStatus/',
-    ADD_ENQUIRY: 'clientEngine/addEnquiry'
+    ADD_ENQUIRY: 'clientEngine/addEnquiry',
+    UNIVERSITIES: 'commonEngine/universities'
 };
 
 export default API_ENDPOINTS;
