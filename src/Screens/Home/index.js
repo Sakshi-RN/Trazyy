@@ -1,5 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView, Image,Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView, Image, Platform, Modal, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import Colors from '../../Themes/Colors';
+import CustomTextInput from '../../Components/CustomTextInput';
+import CustomButton from '../../Components/CustomButton';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useState, useCallback } from 'react';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
@@ -21,6 +23,13 @@ const Home = () => {
   const [asperoLoading, setAsperoLoading] = useState(false);
   const [userPhone, setUserPhone] = useState(null);
 
+
+  // Enquiry Modal State
+  const [modalVisible, setModalVisible] = useState(false);
+  const [queryMessage, setQueryMessage] = useState('');
+  const [enquiryLoading, setEnquiryLoading] = useState(false);
+  const [enquirySource, setEnquirySource] = useState('FirstTimeInvester');
+
   const getGreetingData = () => {
     const hour = new Date().getHours();
 
@@ -36,6 +45,70 @@ const Home = () => {
   };
 
   const { background } = getGreetingData();
+
+  const handleInvestorPress = () => {
+    setEnquirySource('FirstTimeInvester');
+    setModalVisible(true);
+  };
+
+  const handleInsurancePress = () => {
+    setEnquirySource('Insurance');
+    setModalVisible(true);
+  };
+
+  const submitEnquiry = async () => {
+    if (!queryMessage.trim()) {
+      Alert.alert("Required", "Please enter a message to submit.");
+      return;
+    }
+
+    const wordCount = queryMessage.trim().split(/\s+/).filter(w => w.length > 0).length;
+    if (wordCount > 250) {
+      Alert.alert("Limit Exceeded", "Please limit your message to 250 words.");
+      return;
+    }
+
+    try {
+      setEnquiryLoading(true);
+      const clientId = await AsyncStorage.getItem('clientID');
+
+      if (!clientId) {
+        Alert.alert("Error", "User not logged in correctly.");
+        setEnquiryLoading(false);
+        return;
+      }
+
+      const payload = {
+        client_id: Number(clientId),
+        query_message: queryMessage,
+        utm_source: enquirySource,
+        status: "NEW",
+        isActive: 1
+      };
+
+      const response = await axios.post(
+        `${baseURL}${endpoints.ADD_ENQUIRY}`,
+        payload
+      );
+
+      setEnquiryLoading(false);
+
+      if (response.data?.status && (response.data?.statusCode === "0" || response.data?.statusCode === 0)) {
+        Alert.alert("Success", response.data?.response?.message || "Enquiry Added");
+        console.log("Enquiry API Response:", response.data?.response);
+
+        setModalVisible(false);
+        setQueryMessage('');
+      } else {
+        Alert.alert("Error", response.data?.response?.message || "Something went wrong.");
+      }
+
+    } catch (error) {
+      setEnquiryLoading(false);
+      console.error("Enquiry API Error:", error);
+      Alert.alert("Error", "Failed to submit enquiry. Please try again.");
+    }
+  };
 
   const renderHeader = () => {
 
@@ -142,6 +215,57 @@ const Home = () => {
   };
 
 
+  const RenderEnquiryModal = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.modalOverlay}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalContent}>
+              <View style={styles.modalHeader}>
+                <Text allowFontScaling={false} style={styles.modalTitle}>New Enquiry</Text>
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                  <Text allowFontScaling={false} style={styles.closeText}>X</Text>
+                </TouchableOpacity>
+              </View>
+
+              <Text allowFontScaling={false} style={styles.modalLabel}>How can we help you?</Text>
+
+              <CustomTextInput
+                placeholder="I am looking for investment options..."
+                value={queryMessage}
+                onChangeText={setQueryMessage}
+                multiline={true}
+                inputStyle={styles.textArea}
+                textAlignVertical="top"
+              />
+
+              <Text allowFontScaling={false} style={[styles.wordCount,
+              queryMessage.trim().split(/\s+/).filter(w => w.length > 0).length > 250 ? { color: Colors.red } : {}
+              ]}>
+                {queryMessage.trim().split(/\s+/).filter(w => w.length > 0).length}/250 words
+              </Text>
+
+              <CustomButton
+                title={enquiryLoading ? <Loader /> : "Submit"}
+                onPress={submitEnquiry}
+                disabled={enquiryLoading}
+                buttonStyle={styles.submitBtn}
+              />
+            </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </Modal>
+    );
+  };
+
   if (loading) {
     return (
       <View style={styles.centerLogo}>
@@ -164,7 +288,7 @@ const Home = () => {
           style={styles.paddingScrollContent} >
           <Money style={styles.moneyImgStyle} />
           <View style={styles.rowStyle}>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={handleInvestorPress}>
               <InvestorBtn />
             </TouchableOpacity>
             <TouchableOpacity onPress={handleExistingInvestor}>
@@ -175,7 +299,7 @@ const Home = () => {
             <TouchableOpacity onPress={handleBondsPress}>
               <BondsBtn />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleInsurancePress}>
               <InsuranceBtn />
             </TouchableOpacity>
           </View>
@@ -209,6 +333,7 @@ const Home = () => {
           </TouchableOpacity>
         </ScrollView>
       </ImageBackground>
+      {RenderEnquiryModal()}
     </View>
   );
 };
@@ -303,6 +428,69 @@ const styles = StyleSheet.create({
     color: Colors.blue,
     width: responsiveWidth(30),
     marginTop: responsiveHeight(0.5)
+  },
+  // Modal Styles
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    width: '90%',
+    backgroundColor: Colors.white,
+    borderRadius: 20,
+    padding: responsiveWidth(5),
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: responsiveHeight(2),
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontFamily: Fonts.Bold800,
+    color: Colors.blue,
+  },
+  closeText: {
+    fontSize: 18,
+    color: Colors.grey,
+    fontFamily: Fonts.Bold800,
+    padding: 5,
+  },
+  modalLabel: {
+    fontSize: 14,
+    fontFamily: Fonts.Medium600,
+    color: Colors.black,
+    marginBottom: responsiveHeight(1),
+  },
+  textArea: {
+    height: responsiveHeight(18),
+    marginBottom: responsiveHeight(2),
+    borderRadius: 10,
+    borderRadius: 12,
+    backgroundColor: '#E8E8E8',
+    fontSize: 15,
+    color: Colors.black,
+    fontFamily: Fonts.Semibold700,
+    alignItems: 'flex-start',
+  },
+  wordCount: {
+    alignSelf: 'flex-end',
+    fontSize: 12,
+    color: Colors.grey,
+    fontFamily: Fonts.Medium600,
+    marginTop: -responsiveHeight(1),
+  },
+  submitBtn: {
+    marginTop: responsiveHeight(2),
+    alignSelf: 'center'
   }
 });
 

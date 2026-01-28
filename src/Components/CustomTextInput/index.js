@@ -22,6 +22,8 @@ const CustomTextInput = ({
   placeholderTextColor = Colors.grey,
   title,
   isDropdown = false,
+  multiline = false,
+  textAlignVertical = 'center'
 }) => {
   return (
     <View>
@@ -52,6 +54,8 @@ const CustomTextInput = ({
             keyboardType={keyboardType}
             editable={editable}
             allowFontScaling={false}
+            multiline={multiline}
+            textAlignVertical={textAlignVertical}
           />
         )}
 
