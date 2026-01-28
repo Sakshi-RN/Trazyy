@@ -51,8 +51,6 @@ const HiAiSays = () => {
                 year: parseInt(selectedYear)
             };
 
-            // payload has camelCase 'categoryId'. Response uses snake_case 'category_id'.
-            // Sending both in params to cover bases since POST failed and GET body is not possible.
             const queryParams = {
                 ...payload,
                 category_id: payload.categoryId
@@ -62,7 +60,7 @@ const HiAiSays = () => {
 
             const response = await axios.get(
                 `${baseURL}${endpoints.UNIVERSITIES}`,
-                { params: queryParams }
+                // { params: queryParams }
             );
 
             console.log('HiAiSays API Response:', JSON.stringify(response.data));
