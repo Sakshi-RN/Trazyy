@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../Components/Loader';
 import WebViewContainer from '../../Components/WebViewContainer';
 import getEnvVars from '../../utils/config';
+import ReusableEnquiryModal from '../../Components/ReusableEnquiryModal';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -25,10 +26,9 @@ const Home = () => {
 
 
   // Enquiry Modal State
-  const [modalVisible, setModalVisible] = useState(false);
-  const [queryMessage, setQueryMessage] = useState('');
+  const [investorVisible, setInvestorVisible] = useState(false);
+  const [insuranceVisible, setInsuranceVisible] = useState(false);
   const [enquiryLoading, setEnquiryLoading] = useState(false);
-  const [enquirySource, setEnquirySource] = useState('FirstTimeInvester');
 
   const getGreetingData = () => {
     const hour = new Date().getHours();
@@ -47,27 +47,14 @@ const Home = () => {
   const { background } = getGreetingData();
 
   const handleInvestorPress = () => {
-    setEnquirySource('FirstTimeInvester');
-    setModalVisible(true);
+    setInvestorVisible(true);
   };
 
   const handleInsurancePress = () => {
-    setEnquirySource('Insurance');
-    setModalVisible(true);
+    setInsuranceVisible(true);
   };
 
-  const submitEnquiry = async () => {
-    if (!queryMessage.trim()) {
-      Alert.alert("Required", "Please enter a message to submit.");
-      return;
-    }
-
-    const wordCount = queryMessage.trim().split(/\s+/).filter(w => w.length > 0).length;
-    if (wordCount > 250) {
-      Alert.alert("Limit Exceeded", "Please limit your message to 250 words.");
-      return;
-    }
-
+  const submitEnquiry = async (message, source) => {
     try {
       setEnquiryLoading(true);
       const clientId = await AsyncStorage.getItem('clientID');
@@ -80,8 +67,8 @@ const Home = () => {
 
       const payload = {
         client_id: Number(clientId),
-        query_message: queryMessage,
-        utm_source: enquirySource,
+        query_message: message,
+        utm_source: source,
         status: "NEW",
         isActive: 1
       };
@@ -97,8 +84,9 @@ const Home = () => {
         Alert.alert("Success", response.data?.response?.message || "Enquiry Added");
         console.log("Enquiry API Response:", response.data?.response);
 
-        setModalVisible(false);
-        setQueryMessage('');
+        // Close modals
+        setInvestorVisible(false);
+        setInsuranceVisible(false);
       } else {
         Alert.alert("Error", response.data?.response?.message || "Something went wrong.");
       }
@@ -215,56 +203,7 @@ const Home = () => {
   };
 
 
-  const RenderEnquiryModal = () => {
-    return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.modalOverlay}
-        >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.modalContent}>
-              <View style={styles.modalHeader}>
-                <Text allowFontScaling={false} style={styles.modalTitle}>New Enquiry</Text>
-                <TouchableOpacity onPress={() => setModalVisible(false)}>
-                  <Text allowFontScaling={false} style={styles.closeText}>X</Text>
-                </TouchableOpacity>
-              </View>
 
-              <Text allowFontScaling={false} style={styles.modalLabel}>How can we help you?</Text>
-
-              <CustomTextInput
-                placeholder="I am looking for investment options..."
-                value={queryMessage}
-                onChangeText={setQueryMessage}
-                multiline={true}
-                inputStyle={styles.textArea}
-                textAlignVertical="top"
-              />
-
-              <Text allowFontScaling={false} style={[styles.wordCount,
-              queryMessage.trim().split(/\s+/).filter(w => w.length > 0).length > 250 ? { color: Colors.red } : {}
-              ]}>
-                {queryMessage.trim().split(/\s+/).filter(w => w.length > 0).length}/250 words
-              </Text>
-
-              <CustomButton
-                title={enquiryLoading ? <Loader /> : "Submit"}
-                onPress={submitEnquiry}
-                disabled={enquiryLoading}
-                buttonStyle={styles.submitBtn}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-      </Modal>
-    );
-  };
 
   if (loading) {
     return (
@@ -333,7 +272,20 @@ const Home = () => {
           </TouchableOpacity>
         </ScrollView>
       </ImageBackground>
-      {RenderEnquiryModal()}
+      <ReusableEnquiryModal
+        visible={investorVisible}
+        onClose={() => setInvestorVisible(false)}
+        onSubmit={(msg) => submitEnquiry(msg, 'FirstTimeInvester')}
+        loading={enquiryLoading}
+        title="First Time Investor"
+      />
+      <ReusableEnquiryModal
+        visible={insuranceVisible}
+        onClose={() => setInsuranceVisible(false)}
+        onSubmit={(msg) => submitEnquiry(msg, 'Insurance')}
+        loading={enquiryLoading}
+        title="Insurance"
+      />
     </View>
   );
 };
@@ -459,10 +411,9 @@ const styles = StyleSheet.create({
     color: Colors.blue,
   },
   closeText: {
-    fontSize: 18,
-    color: Colors.grey,
+    fontSize: 20,
+    color: Colors.blue,
     fontFamily: Fonts.Bold800,
-    padding: 5,
   },
   modalLabel: {
     fontSize: 14,
