@@ -22,10 +22,14 @@ const TrazyyUniversity = () => {
     const fetchUniversities = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(
+            const payload = {
+                categoryId: "",
+            };
+            const response = await axios.post(
                 `${baseURL}${endpoints.UNIVERSITIES}`,
-                { params: { categoryId: "" } }
+                payload
             );
+
             if (response.data?.status && (response.data?.statusCode === "0" || response.data?.statusCode === 0)) {
                 setUniversities(response.data?.response || []);
             } else {
@@ -113,15 +117,25 @@ const TrazyyUniversity = () => {
                 <View style={styles.gridContainer}>
                     {universities.slice(0, visibleCount).map(item => renderModuleCard(item))}
                 </View>
-                {visibleCount < universities.length && (
+                <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10, width: '100%' }}>
+                    {visibleCount < universities.length && (
+                        <TouchableOpacity
+                            style={styles.viewMoreButton}
+                            onPress={() => setVisibleCount(prev => prev + 6)}
+                        >
+                            <Text allowFontScaling={false} style={styles.viewMoreText}>View More</Text>
+                        </TouchableOpacity>
+                    )}
 
-                    <TouchableOpacity
-                        style={styles.viewMoreButton}
-                        onPress={() => setVisibleCount(prev => prev + 6)}
-                    >
-                        <Text allowFontScaling={false} style={styles.viewMoreText}>View More</Text>
-                    </TouchableOpacity>
-                )}
+                    {visibleCount > 6 && (
+                        <TouchableOpacity
+                            style={styles.viewMoreButton}
+                            onPress={() => setVisibleCount(6)}
+                        >
+                            <Text allowFontScaling={false} style={styles.viewMoreText}>View Less</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
             </ScrollView>
         </ImageBackground>
     );

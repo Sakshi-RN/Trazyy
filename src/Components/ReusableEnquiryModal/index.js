@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, Modal, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TouchableOpacity, StyleSheet, Alert, Platform } from 'react-native';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
@@ -82,23 +82,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.5)',
+        paddingHorizontal:responsiveWidth(5)
     },
     modalContent: {
         width: '90%',
         backgroundColor: Colors.white,
         borderRadius: 20,
-        padding: responsiveWidth(5),
+        paddingVertical: responsiveHeight(1),
         elevation: 5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 4,
+        paddingHorizontal:responsiveWidth(5)
     },
     modalHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: responsiveHeight(2),
+        marginBottom: responsiveHeight(0.5),
     },
     modalTitle: {
         fontSize: 18,
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: Fonts.Medium600,
         color: Colors.black,
-        marginBottom: responsiveHeight(1),
+        marginBottom: responsiveHeight(0.5),
     },
     textArea: {
         height: responsiveHeight(18),
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
         marginTop: -responsiveHeight(1),
     },
     submitBtn: {
-        marginTop: responsiveHeight(2),
+        marginTop: responsiveHeight(1),
         alignSelf: 'center'
     }
 });

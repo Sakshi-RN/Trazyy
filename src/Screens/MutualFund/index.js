@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView, Image,Platform } from 'react-native';
 import Colors from '../../Themes/Colors';
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect,useNavigation } from '@react-navigation/native'
 import { useState, useCallback } from 'react';
 import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { Fonts } from '../../Themes/Fonts';
@@ -16,6 +16,7 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const MutualFund = () => {
+      const navigation = useNavigation();
   const { baseURL, endpoints } = getEnvVars();
   const [loading, setLoading] = useState(true);
   const [thoughts, setThoughts] = useState(null);
@@ -182,7 +183,7 @@ const MutualFund = () => {
             </ImageBackground>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('TrazyyUniversity')}>
           <Image source={images.MutualFundTrazzy} style={styles.moneyImgStyle} />
         </TouchableOpacity>
       </View>

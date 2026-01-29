@@ -41,42 +41,36 @@ const HiAiSays = () => {
         return index !== -1 ? index + 1 : null;
     };
 
+
     const fetchData = async () => {
         setLoading(true);
+
         try {
-            const monthNumber = getMonthNumber(selectedMonth);
+            const monthNumber = monthsList.indexOf(selectedMonth) + 1;
+
             const payload = {
                 categoryId: "4",
                 month: monthNumber,
-                year: parseInt(selectedYear)
+                year: Number(selectedYear)
             };
 
-            const queryParams = {
-                ...payload,
-                category_id: payload.categoryId
-            };
+            console.log('HiAiSays API Payload:', payload);
 
-            console.log("Fetching HiAiSays params (GET):", queryParams);
-
-            const response = await axios.get(
+            const response = await axios.post(
                 `${baseURL}${endpoints.UNIVERSITIES}`,
-                // { params: queryParams }
+                payload
             );
 
-            console.log('HiAiSays API Response:', JSON.stringify(response.data));
-
-            if (response.data?.status && (response.data?.statusCode === "0" || response.data?.statusCode === 0)) {
-                setData(response.data?.response || []);
+            if (
+                response.data?.status === true &&
+                Number(response.data?.statusCode) === 0
+            ) {
+                setData(response.data.response || []);
             } else {
-                console.warn('HiAiSays API Error:', response.data?.statusMessage);
                 setData([]);
             }
         } catch (error) {
-            console.error('HiAiSays Fetch Error:', error);
-            if (error.response) {
-                console.log('Error Data:', JSON.stringify(error.response.data));
-                console.log('Error Status:', error.response.status);
-            }
+            console.error('HiAiSays API Error:', error?.response || error);
             setData([]);
         } finally {
             setLoading(false);

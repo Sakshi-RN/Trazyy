@@ -1,4 +1,4 @@
-import { StyleSheet,Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import Colors from '../../Themes/Colors';
 import { Fonts } from '../../Themes/Fonts';
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
         borderColor: Colors.white,
         backgroundColor: 'rgba(255,255,255,0.3)',
         paddingHorizontal: responsiveWidth(2),
-
     },
     cardGradient: {
         padding: 10,
@@ -133,11 +132,11 @@ const styles = StyleSheet.create({
     },
     descriptionText: {
         fontSize: 11,
-        color:Colors.black,
+        color: Colors.black,
         lineHeight: 14,
         width: responsiveWidth(40),
-        fontFamily:Fonts.Semibold700,
-        marginTop:responsiveHeight(1)
+        fontFamily: Fonts.Semibold700,
+        marginTop: responsiveHeight(1)
 
     },
     actionRow: {
@@ -153,20 +152,21 @@ const styles = StyleSheet.create({
     },
     viewMoreButton: {
         alignSelf: 'center',
-borderWidth:1,
-borderColor:Colors.blue,
-borderRadius:12,
-height:responsiveWidth(10),
-paddingHorizontal:responsiveWidth(6),
-justifyContent:'center',
-alignItems:'center',
-margibBottom:responsiveHeight(2)
+        borderWidth: 1,
+        borderColor: Colors.blue,
+        borderRadius: 12,
+        height: responsiveWidth(10),
+        paddingHorizontal: responsiveWidth(6),
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: responsiveHeight(2)
+
 
     },
     viewMoreText: {
-       color: Colors.blue,
-      fontSize: 14,
-      fontFamily: Fonts.Medium600,
+        color: Colors.blue,
+        fontSize: 14,
+        fontFamily: Fonts.Medium600,
     },
 });
 
